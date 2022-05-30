@@ -1,92 +1,73 @@
 import React from "react";
 import { Formik, Form, Field, useFormik } from "formik";
-// import { Formik, useFormik } from "formik";
 import { Form as BootstrapForm, Button } from "react-bootstrap";
 import * as yup from "yup";
-// import regeneratorRuntime from "regenerator-runtime";
-
-// const AuthSchema = yup.object().shape({
-//   // prettier-ignore
-//   name: yup.string()
-//     .required()
-//     .min(2, "Too Short!")
-//     .max(50, "Too Long!"),
-//   // prettier-ignore
-//   password: yup.string()
-//   .required()
-//   .min(2, "Too Short!")
-//   .max(50, "Too Long!"),
-// });
-
-// const formik = Formik({
-//   initialValues: { name: "", password: "" },
-//   validationSchema: { AuthSchema },
-//   onSubmit: (values) => {
-//     const fromData = async (values) => {
-//       await new Promise((resolve) => setTimeout(resolve, 500));
-//       alert(JSON.stringify(values, null, 2));
-//     };
-//     fromData();
-//   },
-// });
-
-// <Formik
-//   initialValues={{ name: "", password: "" }}
-//   validationSchema={AuthSchema}
-//   onSubmit={async (values) => {
-//     await new Promise((resolve) => setTimeout(resolve, 500));
-//     alert(JSON.stringify(values, null, 2));
-//   }}
-// >
-//   {({ errors, touched }) => (
-//     <Form>
-//       <Field name="name" type="text" />
-//       {errors.name && touched.name ? <span>{errors.name}</span> : null}
-//       <Field name="password" type="password" />
-//       {errors.password && touched.password ? <span>{errors.password}</span> : null}
-//       <button type="submit">Submit</button>
-//     </Form>
-//   )}
-// </Formik>
+import { useState } from "react";
+import routes from "../../../server/routes.js";
+import axios from "axios";
+import { useAuth } from "react-use-auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
+  // const [isFailedValidation, setIsFailedValidation] = useState(true);
+  const [authData, setAuthData] = useState({
+    username: "admin",
+    password: "admin",
+  });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const auth = useAuth();
+
   const AuthSchema = yup.object().shape({
     // prettier-ignore
-    name: yup.string()
+    username: yup.string()
       .required()
       .min(2, "Too Short!")
       .max(50, "Too Long!"),
     // prettier-ignore
     password: yup.string()
-    .required()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!"),
+      .required()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!"),
   });
 
   return (
     <Formik
-      initialValues={{ name: "", password: "" }}
+      initialValues={{ username: "", password: "" }}
       validationSchema={AuthSchema}
       onSubmit={async (values) => {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        alert(JSON.stringify(values, null, 2));
+        try {
+          console.log("values", values);
+          const {
+            data: { token },
+          } = await axios.post("/api/v1/login", values);
+          console.log("token", token);
+          localStorage.setItem("token", JSON.stringify(token));
+          // auth.logIn();
+          auth.login();
+          const { from } = { from: { pathname: "/" } };
+          navigate(from);
+        } catch (err) {
+          console.log(err);
+          throw err;
+        }
       }}
     >
       {({ errors, touched }) => (
         <Form className="p-3">
           <BootstrapForm.Group>
-            <label className="form-label" htmlFor="name">
+            <label className="form-label" htmlFor="username">
               Name
             </label>
             <Field
               type="input"
-              id="name"
-              name="name"
-              autoComplete="name"
+              id="username"
+              name="username"
+              autoComplete="username"
               required
               className="form-control"
             />
-            {errors.name && touched.name ? <span>{errors.name}</span> : null}
+            {errors.username && touched.username ? <span>{errors.username}</span> : null}
           </BootstrapForm.Group>
           <BootstrapForm.Group>
             <label className="form-label" htmlFor="password">
