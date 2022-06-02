@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik, Form, Field, useFormik } from "formik";
 import { Form as BootstrapForm, Button } from "react-bootstrap";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import routes from "../../../server/routes.js";
 import axios from "axios";
 import { useAuth } from "react-use-auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext.js";
 
 const AuthForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
@@ -17,6 +18,7 @@ const AuthForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const auth = useAuth();
+  const { logIn } = useContext(AuthContext);
 
   const AuthSchema = yup.object().shape({
     // prettier-ignore
@@ -41,9 +43,9 @@ const AuthForm = () => {
           const {
             data: { token },
           } = await axios.post("/api/v1/login", values);
-          // console.log("token", token);
-          localStorage.setItem("token", JSON.stringify(token));
-          auth.login();
+          // localStorage.setItem("token", JSON.stringify(token));
+          // auth.login();
+          logIn(JSON.stringify(token));
           const { from } = { from: { pathname: "/" } };
           navigate(from);
         } catch (err) {

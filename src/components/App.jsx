@@ -27,7 +27,7 @@ const AuthContextProvider = ({ children }) => {
     auth.login();
   };
   const logOut = () => {
-    setIsAuthorized(true);
+    setIsAuthorized(false);
     localStorage.removeItem("token");
     auth.logout();
   };

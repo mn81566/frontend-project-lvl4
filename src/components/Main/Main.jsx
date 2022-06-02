@@ -1,7 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
+import AuthContext from "../../contexts/AuthContext.js";
 
 const Main = () => {
-  return <div>Main page</div>;
+  const { isAuthorized } = useContext(AuthContext);
+  console.log("isAuthorized", isAuthorized);
+
+  return (
+    <>
+      <div>isAuthorized: {isAuthorized}</div>
+      <div>Main page</div>
+    </>
+  );
 };
 
 export default Main;
