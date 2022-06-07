@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
-import { Formik, Form, Field, useFormik } from "formik";
-import { Form as BootstrapForm, Button } from "react-bootstrap";
-import * as yup from "yup";
-import { useState } from "react";
-import routes from "../../../server/routes.js";
-import axios from "axios";
-import { useAuth } from "react-use-auth";
-import { useLocation, useNavigate } from "react-router-dom";
-import AuthContext from "../../contexts/AuthContext.js";
+import React, { useContext } from 'react';
+import { Formik, Form, Field, useFormik } from 'formik';
+import { Form as BootstrapForm, Button } from 'react-bootstrap';
+import * as yup from 'yup';
+import { useState } from 'react';
+// import routes from "../../../server/routes.js";
+import axios from 'axios';
+import { useAuth } from 'react-use-auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import AuthContext from '../../contexts/AuthContext.js';
 
 const AuthForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
   const [authData, setAuthData] = useState({
-    username: "admin",
-    password: "admin",
+    username: 'admin',
+    password: 'admin',
   });
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,18 +35,21 @@ const AuthForm = () => {
 
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: '', password: '' }}
       validationSchema={AuthSchema}
       onSubmit={async (values) => {
         try {
-          console.log("values", values);
+          console.log('values', values);
           const {
             data: { token },
-          } = await axios.post("/api/v1/login", values);
+          } = await axios.post('/api/v1/login', values);
+          // const res = await axios.post('/api/v1/login', values);
           // localStorage.setItem("token", JSON.stringify(token));
           // auth.login();
-          logIn(JSON.stringify(token));
-          const { from } = { from: { pathname: "/" } };
+
+          logIn(token);
+          // logIn(JSON.stringify(token));
+          const { from } = { from: { pathname: '/' } };
           navigate(from);
         } catch (err) {
           console.log(err);

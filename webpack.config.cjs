@@ -7,6 +7,7 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
+  devtool: 'cheap-module-source-map',
   entry: './src/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -23,9 +24,7 @@ module.exports = {
     // publicPath: '/assets/',
     historyApiFallback: true,
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
+  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
