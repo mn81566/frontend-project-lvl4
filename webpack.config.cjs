@@ -7,7 +7,7 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-source-map',
   entry: './src/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx'],
