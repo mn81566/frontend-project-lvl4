@@ -57,7 +57,6 @@ const AuthContextProvider = ({ children }) => {
 const App = () => {
   // Как правильно поработать с контекстом?
   // const AuthContext = React.createContext({});
-
   return (
     <Router>
       <Provider store={store}>

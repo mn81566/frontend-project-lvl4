@@ -7,7 +7,7 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
   entry: './src/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx'],
