@@ -1,11 +1,27 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { fetchData } from '../app/thunks.jsx';
 
-const channelsAdapter = createEntityAdapter();
+// const channelsAdapter = createEntityAdapter();
+const initialState = {
+  channels: [],
+  currentChannel: null,
+};
 
 const channelsSlice = createSlice({
   name: 'channel',
-  initialState: channelsAdapter.getInitialState(),
+  initialState,
+  reducers: {
+    addChanel: (state, { payload }) => {
+      state.channels.push(payload.channel);
+    },
+    removeChannel: (state) => {
+      // ...
+      // setCurrentChannel
+    },
+    changeChannel: (state) => {},
+    renameChannel: (state) => {},
+    setCurrentChannel: (state) => {},
+  },
   extraReducers: (builder) => {
     // builder.addCase(fetchData.fulfilled, chatsAdapter.setAll);
     builder.addCase(fetchData.fulfilled, (state, action) => {
