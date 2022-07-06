@@ -2,22 +2,24 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import MessageForm from '../MessageForm/MessageForm.jsx';
 import { messagesSelectors } from '../../slices/messageSlice.js';
-import { currentChannelIdSelectors } from '../../slices/currentChannelIdSlice.js';
+import { channelsSelectors } from '../../slices/channelsSlice.js';
+// import { currentChannelIdSelectors } from '../../slices/currentChannelIdSlice.js';
 import _ from 'lodash';
 
 const Messages = () => {
   const messagesData = useSelector(messagesSelectors.selectAll);
   const messagesCount = useSelector(messagesSelectors.selectTotal);
-  // const currentChanel = _.find(useSelector(currentChannelIdSelector.selectEntities));
-  const currentChanel = useSelector(currentChannelIdSelectors.selectEntities);
+  const currentChannelId = useSelector((state) => state.currentChannelId.currentChannelId);
+  const channels = useSelector(channelsSelectors.selectEntities);
+  const currentChanelName = _.find(channels, (channel) => channel.id === currentChannelId);
 
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
-            {/* <b># {currentChanel}</b> */}
-            <b># </b>
+            <b># {currentChanelName?.name}</b>
+            {/* <b># </b> */}
           </p>
           <span className="text-muted">{messagesCount} сообщений</span>
         </div>
