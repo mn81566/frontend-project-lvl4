@@ -1,39 +1,41 @@
 import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, useFormik } from 'formik';
 import { Form as BootstrapForm, Button } from 'react-bootstrap';
 import * as yup from 'yup';
-import { useState } from 'react';
-// import routes from "../../../server/routes.js";
-import axios from 'axios';
-import { useAuth } from 'react-use-auth';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import AuthContext from '../../contexts/AuthContext.js';
+
+import { addNewMessage, fetchData } from '../../app/thunks.jsx';
+import { actions } from '../../slices/messageSlice.js';
+import SocketContext from '../../contexts/SocketContext.js';
 
 const MessageForm = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  // const auth = useAuth();
-  // const { logIn } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const socket = useContext(SocketContext);
 
-  const AuthSchema = yup.object().shape({
+  const MessageSchema = yup.object().shape({
     // prettier-ignore
     message: yup.string()
-      .required()
-      .max(9999, "Too Long!"),
+      .required(),
   });
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
-      validationSchema={AuthSchema}
-      onSubmit={async (values) => {
+      initialValues={{ message: '' }}
+      validationSchema={MessageSchema}
+      onSubmit={async (values, { resetForm }) => {
+        // e.preventDefault();
+        const textMessage = values.message;
+        console.log('MEEESSAGE FORM: ', textMessage);
+
         try {
-          console.log('values', values);
-          const {
-            data: { token },
-          } = await axios.post('/api/v1/login', values);
-          const { from } = { from: { pathname: '/' } };
-          navigate(from);
+          // await dispatch(actions.addMessage(message));
+          const addNewMessageDispatchResponse = await dispatch(
+            addNewMessage({ socket, textMessage })
+          );
+          resetForm({ message: '' });
+          if (addNewMessageDispatchResponse.meta.requestStatus == 'fulfilled') {
+            dispatch(fetchData());
+          }
         } catch (err) {
           console.log(err);
           throw err;
@@ -44,10 +46,9 @@ const MessageForm = () => {
         <Form className="py-1 border rounded-2">
           <div className="input-group has-validation">
             <Field
-              type="input"
+              type="textarea"
               id="message"
               name="message"
-              autoComplete="message"
               required
               className="border-0 p-0 ps-2 form-control"
             />
@@ -67,7 +68,7 @@ const MessageForm = () => {
               <span className="visually-hidden">Отправить</span>
             </Button>
             <br />
-            {errors.message && touched.message ? <span>{errors.message}</span> : null}
+            {/* {errors.message && touched.message ? <span>{errors.message}</span> : null} */}
           </div>
         </Form>
       )}

@@ -1,12 +1,16 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-// import axios from 'axios';
-import fetchData from '../app/thunks.jsx';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { fetchData, addNewMessage } from '../app/thunks.jsx';
+import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 
 const messagesAdapter = createEntityAdapter();
 
 const messageSlice = createSlice({
-  name: 'message',
+  name: 'messages',
   initialState: messagesAdapter.getInitialState(),
+  // reducers: {
+  //   addMessage: messagesAdapter.addOne,
+  // },
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
       messagesAdapter.setAll(state, action.payload.messages);
@@ -14,6 +18,7 @@ const messageSlice = createSlice({
   },
 });
 
-export const messagesSelectors = messagesAdapter.getSelectors((state) => state.message);
+export const { actions } = messageSlice;
+export const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages);
 
 export default messageSlice.reducer;
