@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, useFormik } from 'formik';
 import { Form as BootstrapForm, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 
 import { addNewMessage, fetchData } from '../../app/thunks.jsx';
-import { actions } from '../../slices/messageSlice.js';
 import SocketContext from '../../contexts/SocketContext.js';
 
 const MessageForm = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
+  const { currentChannel } = useSelector((state) => state.channelsInfo);
 
   const MessageSchema = yup.object().shape({
     // prettier-ignore
@@ -28,9 +28,8 @@ const MessageForm = () => {
         console.log('MEEESSAGE FORM: ', textMessage);
 
         try {
-          // await dispatch(actions.addMessage(message));
           const addNewMessageDispatchResponse = await dispatch(
-            addNewMessage({ socket, textMessage })
+            addNewMessage({ socket, textMessage, currentChannel })
           );
           resetForm({ message: '' });
           if (addNewMessageDispatchResponse.meta.requestStatus == 'fulfilled') {

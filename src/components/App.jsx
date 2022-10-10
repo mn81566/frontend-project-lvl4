@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap';
 import { useAuth } from 'react-use-auth';
 import AuthContext from '../contexts/AuthContext.js';
 import AuthButton from './AuthButton/AuthButton';
+import Modal from './modals/Modal';
 import { Provider } from 'react-redux';
 import cn from 'classnames';
 
@@ -87,6 +88,7 @@ const App = () => {
             <Route path="/login" element={<Login />}></Route>
             <Route path="*" element={<NoMatch />}></Route>
           </Routes>
+          <Modal />
         </div>
       </AuthContextProvider>
       {/* </Provider> */}

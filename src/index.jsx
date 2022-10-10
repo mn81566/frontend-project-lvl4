@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './components/App.jsx';
+// import ErrorBoundary from './components/ErrorBoundary.jsx';
 import store from './slices/index.js';
 // import SocketContext from './contexts/SocketContext.js';
 // import app from '../server/plugin.js';
@@ -28,7 +29,9 @@ const container = document.getElementById('chat');
 render(
   <Provider store={store}>
     <SocketContextProvider>
+      {/* <ErrorBoundary> */}
       <App />
+      {/* </ErrorBoundary> */}
     </SocketContextProvider>
   </Provider>,
   container

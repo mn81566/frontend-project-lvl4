@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import SocketContext from '../contexts/SocketContext.js';
+// import SocketContext from '../contexts/SocketContext.js';
 
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
   console.log('ACTUUUAL Token', localStorage.getItem('token'));
@@ -22,11 +22,10 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
 
 export const addNewMessage = createAsyncThunk(
   'messages/addNewMessage',
-  async ({ socket, textMessage }) => {
-    // let isStatusOk = false;
+  async ({ socket, textMessage, currentChannel }) => {
     socket.emit(
       'newMessage',
-      { body: textMessage, channelId: 1, username: 'admin' }
+      { body: textMessage, channelId: currentChannel, username: 'admin' }
       // (response) => {
       //   console.log('THUNK STAAATUS ', response.status);
       //   if (response.status == 'ok') {
@@ -35,5 +34,26 @@ export const addNewMessage = createAsyncThunk(
       // }
     );
     // return isStatusOk;
+  }
+);
+
+export const addNewChannel = createAsyncThunk(
+  'channels/addNewChannel',
+  async ({ socket, channelName }) => {
+    socket.emit('newChannel', { name: channelName });
+  }
+);
+
+export const renameChannel = createAsyncThunk(
+  'channels/renameChannel',
+  async ({ socket, id, name }) => {
+    socket.emit('renameChannel', { id, name });
+  }
+);
+
+export const removeChannel = createAsyncThunk(
+  'channels/removeChannel',
+  async ({ socket, channelId }) => {
+    socket.emit('removeChannel', { id: channelId });
   }
 );

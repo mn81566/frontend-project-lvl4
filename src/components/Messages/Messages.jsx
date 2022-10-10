@@ -1,16 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MessageForm from '../MessageForm/MessageForm.jsx';
-import { messagesSelectors } from '../../slices/messageSlice.js';
-import { channelsSelectors } from '../../slices/channelsSlice.js';
-// import { currentChannelIdSelectors } from '../../slices/currentChannelIdSlice.js';
 import _ from 'lodash';
 
 const Messages = () => {
-  const messagesData = useSelector(messagesSelectors.selectAll);
-  const messagesCount = useSelector(messagesSelectors.selectTotal);
-  const currentChannelId = useSelector((state) => state.currentChannelId.currentChannelId);
-  const channels = useSelector(channelsSelectors.selectEntities);
+  const messages = useSelector((state) => state.messagesInfo.messages);
+  const messagesCount = useSelector((state) => state.messagesInfo.length);
+  const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
+  const channels = useSelector((state) => state.channelsInfo.channels);
   const currentChanelName = _.find(channels, (channel) => channel.id === currentChannelId);
 
   return (
@@ -24,7 +21,7 @@ const Messages = () => {
           <span className="text-muted">{messagesCount} сообщений</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-          {messagesData.map((message) => (
+          {messages.map((message) => (
             <div key={message.id} className="text-break mb-2">
               <b>{message.username}</b>: {message.body}
             </div>
