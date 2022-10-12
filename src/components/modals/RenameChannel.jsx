@@ -6,12 +6,16 @@ import * as yup from 'yup';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { renameChannel, fetchData } from '../../app/thunks.jsx';
+import getSchema from '../../app/utils/validate.js';
 
-const AddChannelSchema = yup.object().shape({
-  // prettier-ignore
-  channelName: yup.string()
-    .required(),
-});
+// const AddChannelSchema = yup.object().shape({
+//   // prettier-ignore
+//   channelName: yup.string()
+//     .required()
+//     .min(3, "От 3 до 20 символов!")
+//     .max(20, "От 3 до 20 символов!")
+//     .notOneOf([channels.map((channel) => channel.name)], "Должно быть уникальным"),
+// });
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
@@ -21,6 +25,8 @@ const RemoveChannel = () => {
   const renamedChannelName = useSelector(
     (state) => state.channelsInfo.channels.find((channel) => channel.id === channelId).name
   );
+  const channels = useSelector((state) => state.channelsInfo.channels);
+  const schema = getSchema(channels);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,7 +37,7 @@ const RemoveChannel = () => {
   return (
     <Formik
       initialValues={{ channelName: renamedChannelName }}
-      validationSchema={AddChannelSchema}
+      validationSchema={schema}
       onSubmit={async (values, { resetForm }) => {
         const channelName = values.channelName;
 

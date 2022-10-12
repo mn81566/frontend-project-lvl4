@@ -58,11 +58,9 @@ const AuthForm = () => {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="p-3">
-          <BootstrapForm.Group>
-            <label className="form-label" htmlFor="username">
-              Name
-            </label>
+        <Form className="col-12 col-md-6 mt-3 mt-mb-0">
+          <h1 className="text-center mb-4">Войти</h1>
+          <BootstrapForm.Group className="form-floating mb-3">
             <Field
               type="input"
               id="username"
@@ -71,28 +69,26 @@ const AuthForm = () => {
               required
               className="form-control"
             />
+            <label htmlFor="username">Ваш ник</label>
             {errors.username && touched.username ? <span>{errors.username}</span> : null}
           </BootstrapForm.Group>
-          <BootstrapForm.Group>
-            <label className="form-label" htmlFor="password">
-              Password
-            </label>
+          <BootstrapForm.Group className="form-floating mb-4">
             <Field
-              type="input"
+              type="password"
               id="password"
               name="password"
               autoComplete="password"
               required
               className="form-control"
             />
+            <label className="form-label" htmlFor="password">
+              Пароль
+            </label>
             {errors.password && touched.password ? <span>{errors.password}</span> : null}
           </BootstrapForm.Group>
-          <br />
-          <BootstrapForm.Group>
-            <Button type="submit" className="outline-primary">
-              Submit
-            </Button>
-          </BootstrapForm.Group>
+          <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
+            Войти
+          </button>
         </Form>
       )}
     </Formik>

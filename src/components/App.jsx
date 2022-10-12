@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Main from './Main/Main';
 import Login from './Login/Login';
+import SignUp from './SignUp/SignUp';
 import NoMatch from './NoMatch/NoMatch';
 import { Button } from 'react-bootstrap';
 import { useAuth } from 'react-use-auth';
@@ -86,6 +87,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
             <Route path="*" element={<NoMatch />}></Route>
           </Routes>
           <Modal />
