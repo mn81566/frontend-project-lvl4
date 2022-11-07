@@ -52,7 +52,7 @@ const App = () => {
     console.log('🚀 ~ file: App.jsx ~ line 53 ~ useEffect ~ auth.loggedIn', auth.loggedIn);
     console.log('🚀 ~ file: App.jsx ~ line 53 ~ useEffect ~ localStorage', localStorage);
     // isAuthorized = auth.isAuthorized();
-  }, [localStorage]);
+  }, [auth, localStorage]);
 
   return (
     <Router>
