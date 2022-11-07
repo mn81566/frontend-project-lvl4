@@ -1,65 +1,59 @@
-// const React = require("react");
 import React, { useState } from 'react';
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 import Main from './Main/Main';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import NoMatch from './NoMatch/NoMatch';
-import { Button } from 'react-bootstrap';
-import { useAuth } from 'react-use-auth';
-import AuthContext from '../contexts/AuthContext.js';
+// import { useAuth } from 'react-use-auth';
+import useAuth from '../hooks/auth';
+import AuthContext, { isTokenExists } from '../contexts/AuthContext';
 import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
-import { Provider } from 'react-redux';
 import cn from 'classnames';
-
-// import store from '../slices/index.js';
-
-const REACT_VERSION = React.version;
-
-// const logOut = (auth) => {
-//   localStorage.removeItem("token");
-//   auth.logout();
-// };
+import { useEffect } from 'react';
+import ROUTES from '../routes.js';
 
 const AuthContextProvider = ({ children }) => {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const auth = useAuth();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const logIn = (token) => {
-    setIsAuthorized(true);
-    localStorage.setItem('token', token);
-    auth.login();
+    setLoggedIn(true);
+    localStorage.setItem('userId', token);
+    // console.log('🚀 ~ file: App.jsx ~ line 28 ~ logIn ~ localStorage', localStorage);
+    // auth.login();
   };
   const logOut = () => {
-    setIsAuthorized(false);
-    localStorage.removeItem('token');
-    auth.logout();
+    setLoggedIn(false);
+    localStorage.removeItem('userId');
+    // console.log('🚀 ~ file: App.jsx ~ line 34 ~ logOut ~ localStorage', localStorage);
+    // auth.logout();
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthorized, logIn, logOut }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>{children}</AuthContext.Provider>
   );
 };
-
-// const AuthButton = () => {
-//   const auth = useAuth();
-//   const location = useLocation();
-//   const isTokenExists = localStorage.getItem("token");
-
-//   return isTokenExists ? (
-//     <Button onClick={() => logOut(auth)}>Log out</Button>
-//   ) : (
-//     <Button as={Link} to="/login" state={{ from: location }}>
-//       Login
-//     </Button>
-//   );
-// };
 
 const App = () => {
   // Как правильно поработать с контекстом?
   // const AuthContext = React.createContext({});
+  const auth = useAuth();
+  const bolTest = false;
+
+  useEffect(() => {
+    console.log('🚀 ~ file: App.jsx ~ line 41 ~ App ~ auth', auth);
+    console.log('🚀 ~ file: App.jsx ~ line 53 ~ useEffect ~ auth.loggedIn', auth.loggedIn);
+    console.log('🚀 ~ file: App.jsx ~ line 53 ~ useEffect ~ localStorage', localStorage);
+    // isAuthorized = auth.isAuthorized();
+  }, [localStorage]);
+
   return (
     <Router>
       {/* <Provider store={store}> */}
@@ -85,10 +79,17 @@ const App = () => {
           {/* A <Routes> looks through its children <Route>s and
                   renders the first one that matches the current URL. */}
           <Routes>
-            <Route path="/" element={<Main />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route>
-            <Route path="*" element={<NoMatch />}></Route>
+            {!auth.loggedIn ? (
+              <>
+                <Route path={ROUTES.login} element={<Login />}></Route>
+                <Route path={ROUTES.signup} element={<SignUp />}></Route>
+                <Route path="*" element={<Navigate to={ROUTES.login} replace />}></Route>
+              </>
+            ) : (
+              <Route path={ROUTES.root} element={<Main />}>
+                <Route path="*" element={<NoMatch />}></Route>
+              </Route>
+            )}
           </Routes>
           <Modal />
         </div>

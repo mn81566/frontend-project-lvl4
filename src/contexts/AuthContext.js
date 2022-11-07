@@ -1,7 +1,7 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 
-export default createContext({
-  isAuthorized: false,
-  // logIn: () => {},
-  // logOut: () => {},
-});
+const AuthContext = createContext({});
+
+export const isTokenExists = () => localStorage.getItem('userId');
+
+export default AuthContext;

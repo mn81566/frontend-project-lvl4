@@ -4,7 +4,6 @@ import axios from 'axios';
 // import SocketContext from '../contexts/SocketContext.js';
 
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
-  console.log('ACTUUUAL Token', localStorage.getItem('token'));
   const fetchedData = await axios.get('/api/v1/data', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
