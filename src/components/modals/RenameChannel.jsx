@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { renameChannel, fetchData } from '../../app/thunks.jsx';
-import getSchema from '../../app/utils/validate.js';
+import { AuthSchema } from '../../app/utils/validate.js';
 
 // const AddChannelSchema = yup.object().shape({
 //   // prettier-ignore
@@ -26,7 +26,7 @@ const RemoveChannel = () => {
     (state) => state.channelsInfo.channels.find((channel) => channel.id === channelId).name
   );
   const channels = useSelector((state) => state.channelsInfo.channels);
-  const schema = getSchema(channels);
+  // const schema = getSchema(channels);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -37,7 +37,7 @@ const RemoveChannel = () => {
   return (
     <Formik
       initialValues={{ channelName: renamedChannelName }}
-      validationSchema={schema}
+      validationSchema={AuthSchema}
       onSubmit={async (values, { resetForm }) => {
         const channelName = values.channelName;
 

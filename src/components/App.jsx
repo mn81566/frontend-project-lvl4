@@ -12,7 +12,7 @@ import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import NoMatch from './NoMatch/NoMatch';
 // import { useAuth } from 'react-use-auth';
-import useAuth from '../hooks/auth';
+import useAuth from '../hooks/auth.js';
 import AuthContext, { isTokenExists } from '../contexts/AuthContext';
 import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';

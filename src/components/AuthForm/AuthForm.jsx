@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useAuth } from 'react-use-auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
-import getSchema from '../../app/utils/validate.js';
+import { AuthSchema } from '../../app/utils/validate.js';
 
 const AuthForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
@@ -21,20 +21,20 @@ const AuthForm = () => {
   const auth = useAuth();
   const { logIn } = useContext(AuthContext);
 
-  const AuthSchema = yup.object().shape({
-    // prettier-ignore
-    username: yup.string()
-      .required()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!"),
-    // prettier-ignore
-    password: yup.string()
-      .required()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!"),
-  });
+  // const AuthSchema = yup.object().shape({
+  //   // prettier-ignore
+  //   username: yup.string()
+  //     .required()
+  //     .min(2, "Too Short!")
+  //     .max(50, "Too Long!"),
+  //   // prettier-ignore
+  //   password: yup.string()
+  //     .required()
+  //     .min(2, "Too Short!")
+  //     .max(50, "Too Long!"),
+  // });
 
-  const TestSchema = getSchema([]);
+  // const TestSchema = getSchema([]);
 
   return (
     <Formik

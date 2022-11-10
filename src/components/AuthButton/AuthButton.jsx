@@ -12,7 +12,7 @@ function AuthButton() {
   return (
     isTokenExists() && (
       <Button onClick={() => logOut()} as={Link} to="/login" state={{ from: location }}>
-        Log out
+        Выйти
       </Button>
     )
   );
