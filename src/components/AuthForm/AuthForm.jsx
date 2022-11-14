@@ -49,8 +49,8 @@ const AuthForm = () => {
           // const res = await axios.post('/api/v1/login', values);
           // localStorage.setItem('userId', JSON.stringify(token));
           logIn(token);
-          const { from } = { from: { pathname: '/' } };
-          navigate(from);
+          // const { from } = { from: { pathname: '/' } };
+          // navigate(from);
         } catch (err) {
           console.log(err);
           throw err;

@@ -1,21 +1,17 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import AuthContext, { isTokenExists } from '../../contexts/AuthContext.js';
+import AuthContext from '../../contexts/AuthContext.js';
+import { useAuth } from '../../hooks/useAuth.jsx';
 
-function AuthButton() {
-  // const auth = useAuth();
+const AuthButton = () => {
+  const { user } = useAuth();
+  console.log('🚀 ~ file: AuthButton.jsx ~ line 9 ~ AuthButton ~ user', user);
+  console.log('🚀 ~ file: AuthButton.jsx ~ line 9 ~ AuthButton ~ user TYPE', typeof user);
   const location = useLocation();
-  // const isTokenExists = localStorage.getItem('userId');
   const { logOut } = useContext(AuthContext);
 
-  return (
-    isTokenExists() && (
-      <Button onClick={() => logOut()} as={Link} to="/login" state={{ from: location }}>
-        Выйти
-      </Button>
-    )
-  );
-}
+  return user && <Button onClick={() => logOut()}>Выйти</Button>;
+};
 
 export default AuthButton;
