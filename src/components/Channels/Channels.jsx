@@ -8,12 +8,17 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import cn from 'classnames';
 import { useEffect } from 'react';
 import { event } from 'jquery';
+import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Channels = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
   // const [activeButtonId, setActiveButtonId] = useState();
+  const { t } = useTranslation();
+  const notify = () => toast('Wow so easy!');
 
   useEffect(() => {
     dispatch(setCurrentChannel(currentChannel));
@@ -40,7 +45,8 @@ const Channels = () => {
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-        <span>Каналы</span>
+        <span>{t('channels.title')}</span>
+        {/* <button onClick={notify}>W</button> */}
         <button
           type="button"
           onClick={handleAddChannel}
@@ -83,7 +89,7 @@ const Channels = () => {
                 })}
                 onClick={() => handleChannelClick(channel.id)}
               >
-                # {channel.name}
+                {t('channels.tag')} {channel.name}
               </button>
               {channel.removable && (
                 <>

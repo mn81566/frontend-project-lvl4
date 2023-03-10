@@ -3,15 +3,15 @@ import { Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { useAuth } from '../../hooks/useAuth.jsx';
+import { useTranslation } from 'react-i18next';
 
 const AuthButton = () => {
   const { user } = useAuth();
-  console.log('🚀 ~ file: AuthButton.jsx ~ line 9 ~ AuthButton ~ user', user);
-  console.log('🚀 ~ file: AuthButton.jsx ~ line 9 ~ AuthButton ~ user TYPE', typeof user);
   const location = useLocation();
   const { logOut } = useContext(AuthContext);
+  const { t } = useTranslation();
 
-  return user && <Button onClick={() => logOut()}>Выйти</Button>;
+  return user && <Button onClick={() => logOut()}>{t('auth.logoutButton')}</Button>;
 };
 
 export default AuthButton;

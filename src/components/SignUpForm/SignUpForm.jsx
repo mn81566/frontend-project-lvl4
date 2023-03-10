@@ -10,18 +10,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { SignUpSchema } from '../../app/utils/validate.js';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
   const [authData, setAuthData] = useState({
-    username: 'admin',
-    password: 'admin',
+    username: '',
+    password: '',
   });
   const location = useLocation();
   const navigate = useNavigate();
   const auth = useAuth();
   const { logIn } = useContext(AuthContext);
   const [isUserExists, setIsUserExists] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Formik
@@ -49,7 +51,7 @@ const SignUpForm = () => {
     >
       {({ errors, touched }) => (
         <Form className="w-50">
-          <h1 className="text-center mb-4">Регистрация</h1>
+          <h1 className="text-center mb-4">{t('signup.title')}</h1>
           <BootstrapForm.Group className="form-floating mb-3">
             <Field
               type="input"
@@ -61,7 +63,7 @@ const SignUpForm = () => {
                 'is-invalid': (errors.username && touched.username) || isUserExists,
               })}
             />
-            <label htmlFor="username">Имя пользователя</label>
+            <label htmlFor="username">{t('signup.nameInput')}</label>
             {errors.username && touched.username ? <span>{errors.username}</span> : null}
           </BootstrapForm.Group>
           <BootstrapForm.Group className="form-floating mb-4">
@@ -76,7 +78,7 @@ const SignUpForm = () => {
               })}
             />
             <label className="form-label" htmlFor="password">
-              Пароль
+              {t('signup.passwordInput')}
             </label>
             {errors.password && touched.password ? <span>{errors.password}</span> : null}
           </BootstrapForm.Group>
@@ -93,14 +95,14 @@ const SignUpForm = () => {
               })}
             />
             <label className="form-label" htmlFor="passwordConfirmation">
-              Подтвердите пароль
+              {t('signup.passwordConfirmationInput')}
             </label>
             {errors.passwordConfirmation && touched.passwordConfirmation ? (
               <span>{errors.passwordConfirmation}</span>
             ) : null}
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
-            Зарегистрироваться
+            {t('signup.signupButton')}
           </button>
         </Form>
       )}

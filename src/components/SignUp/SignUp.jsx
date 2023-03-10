@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 
 const Login = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="container-fluid h-100">
@@ -11,7 +14,11 @@ const Login = () => {
             <div className="card shadow-sm">
               <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
                 <div>
-                  <img src="../../images/signup.jpg" className="rounded-circle" alt="Регистрация" />
+                  <img
+                    src="../../images/signup.jpg"
+                    className="rounded-circle"
+                    alt={t('signup.title')}
+                  />
                 </div>
                 <SignUpForm />
               </div>

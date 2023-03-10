@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import ROUTES from '../routes.js';
 
 export const AuthContextProvider = ({ children }) => {
-  // const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useLocalStorage('user', null);
+  // const currentUser = JSON.parse(localStorage.getItem('user'));
+  // const [user, setUser] = useState(currentUser);
+
   console.log('🚀 ~ file: useAuth.jsx ~ line 9 ~ AuthContextProvider ~ user', user);
   console.log('🚀 ~ file: useAuth.jsx ~ line 9 ~ AuthContextProvider ~ user TYPE', typeof user);
   const navigate = useNavigate();

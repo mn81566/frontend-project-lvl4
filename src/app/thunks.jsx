@@ -12,27 +12,13 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
   return fetchedData.data;
 });
 
-// export const addNewMessage = (socket, textMessage) =>
-//   createAsyncThunk('messages/addNewMessage', async () => {
-//     console.log('THUNK!!! ', textMessage);
-
-//     socket.emit('newMessage', [textMessage]);
-//   })();
-
 export const addNewMessage = createAsyncThunk(
   'messages/addNewMessage',
   async ({ socket, textMessage, currentChannel }) => {
     socket.emit(
       'newMessage',
       { body: textMessage, channelId: currentChannel, username: 'admin' }
-      // (response) => {
-      //   console.log('THUNK STAAATUS ', response.status);
-      //   if (response.status == 'ok') {
-      //     isStatusOk = true;
-      //   }
-      // }
     );
-    // return isStatusOk;
   }
 );
 

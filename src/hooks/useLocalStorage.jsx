@@ -1,15 +1,6 @@
 import { useState } from 'react';
 
 export const useLocalStorage = (keyName, defaultValue) => {
-  console.log(
-    '🚀 ~ file: useLocalStorage.jsx ~ line 4 ~ useLocalStorage ~ defaultValue',
-    defaultValue
-  );
-  console.log(
-    '🚀 ~ file: useLocalStorage.jsx ~ line 4 ~ useLocalStorage ~ defaultValue TYPE',
-    typeof defaultValue
-  );
-
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const value = localStorage.getItem(keyName);

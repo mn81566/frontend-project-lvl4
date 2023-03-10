@@ -25,7 +25,6 @@ const MessageForm = () => {
       onSubmit={async (values, { resetForm }) => {
         // e.preventDefault();
         const textMessage = values.message;
-        console.log('MEEESSAGE FORM: ', textMessage);
 
         try {
           const addNewMessageDispatchResponse = await dispatch(

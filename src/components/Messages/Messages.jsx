@@ -2,8 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import MessageForm from '../MessageForm/MessageForm.jsx';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 const Messages = () => {
+  const { t } = useTranslation();
   const messages = useSelector((state) => state.messagesInfo.messages);
   const messagesCount = useSelector((state) => state.messagesInfo.length);
   const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
@@ -15,10 +17,14 @@ const Messages = () => {
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
-            <b># {currentChanelName?.name}</b>
+            <b>
+              {t('channels.tag')} {currentChanelName?.name}
+            </b>
             {/* <b># </b> */}
           </p>
-          <span className="text-muted">{messagesCount} сообщений</span>
+          <span className="text-muted">
+            {messagesCount} {t('messages.messages')}
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {messages.map((message) => (

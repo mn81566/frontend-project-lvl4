@@ -20,6 +20,8 @@ import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import cn from 'classnames';
 import ROUTES from '../routes.js';
+import '../app/locales/index.js';
+import { useTranslation } from 'react-i18next';
 
 const HomeLayout = () => {
   const { user } = useAuth();
@@ -32,8 +34,7 @@ const HomeLayout = () => {
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
-  console.log('🚀 ~ file: App.jsx ~ line 72 ~ ProtectedRoute ~ user', user);
-  console.log('🚀 ~ file: App.jsx ~ line 72 ~ ProtectedRoute ~ user TYPE', typeof user);
+  
   if (!user) {
     return <Navigate to={ROUTES.login} />;
   }
@@ -42,6 +43,8 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  const { t } = useTranslation();
+
   return (
     <AuthContextProvider>
       <div className="d-flex flex-column h-100">
@@ -54,7 +57,7 @@ const App = () => {
                   <Link to="/login">Login</Link>
                 </li> */}
             <a className="navbar-brand" href="/">
-              Hexlet Chat
+              {t('header.title')}
             </a>
             <AuthButton />
           </div>
