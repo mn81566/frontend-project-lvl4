@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, useFormik } from 'formik';
 import { Form as BootstrapForm, Button } from 'react-bootstrap';
 import * as yup from 'yup';
+import filter from 'leo-profanity';
 
 import { addNewMessage, fetchData } from '../../app/thunks.jsx';
 import SocketContext from '../../contexts/SocketContext.js';
@@ -11,6 +12,9 @@ const MessageForm = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { currentChannel } = useSelector((state) => state.channelsInfo);
+  filter.add(filter.getDictionary('en'))
+  filter.add(filter.getDictionary('ru'))  
+  const [isMessageInputDisable, setIsMessageInputDisable] = useState(false);
 
   const MessageSchema = yup.object().shape({
     // prettier-ignore
@@ -23,16 +27,18 @@ const MessageForm = () => {
       initialValues={{ message: '' }}
       validationSchema={MessageSchema}
       onSubmit={async (values, { resetForm }) => {
-        // e.preventDefault();
-        const textMessage = values.message;
+        // const textMessage = values.message;
+        const textMessage = filter.clean(values.message);     
 
         try {
           const addNewMessageDispatchResponse = await dispatch(
             addNewMessage({ socket, textMessage, currentChannel })
           );
-          resetForm({ message: '' });
+          setIsMessageInputDisable(true);
           if (addNewMessageDispatchResponse.meta.requestStatus == 'fulfilled') {
+            resetForm({ message: '' });
             dispatch(fetchData());
+            setIsMessageInputDisable(false);
           }
         } catch (err) {
           console.log(err);
@@ -49,6 +55,7 @@ const MessageForm = () => {
               name="message"
               required
               className="border-0 p-0 ps-2 form-control"
+              disabled={isMessageInputDisable}
             />
             <Button type="submit" className="btn btn-group-vertical" disabled="">
               <svg

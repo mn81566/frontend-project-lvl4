@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchData } from '../app/thunks.jsx';
+import { useSelector, useDispatch } from 'react-redux';
 
 const getChannels = (state, action) => {
   state.channels = [];
@@ -14,6 +15,8 @@ const initialState = {
   channels: [],
   currentChannel: null,
 };
+
+// const dispatch = useDispatch();
 
 const channelsSlice = createSlice({
   name: 'channelsInfo',
@@ -33,6 +36,8 @@ const channelsSlice = createSlice({
         payload = 1;
       }
       state.currentChannel = payload;
+
+      // fetchData();
     },
   },
   extraReducers: (builder) => {

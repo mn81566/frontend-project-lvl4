@@ -1,14 +1,29 @@
 import { useDispatch } from 'react-redux';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import { fetchData, addNewMessage } from '../app/thunks.jsx';
 import { useContext } from 'react';
+import { setCurrentChannel } from './channelsSlice.js';
 
-const getMessages = (state, action) => {
+export const getMessages = (state, action) => {
+  // if (!state?.messages) {
+  //   return;
+  // }
   state.messages = [];
-  action.payload.messages.forEach((message) => {
-    state.messages.push(message);
-  });
+  // action.payload.messages.forEach((message) => {
+  //   state.messages.push(message);
+  // });
+
+
+  // const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
+
+  // const currentChannelId = action.payload?.currentChannelId;
+  // const currentChannelId = state.channelsInfo.currentChannel;
+  if (action.payload?.messages) {
+    state.messages = action.payload?.messages;
+  }
 };
+
 // const messagesAdapter = createEntityAdapter();
 
 const initialState = {
@@ -20,10 +35,15 @@ const messageSlice = createSlice({
   // initialState: messagesAdapter.getInitialState(),
   initialState,
   reducers: {
-    addMessage: (state, { payload }) => {
-      // state.messages.push(payload.message);
+    addMessage: (state, { payload }) => {      
       addNewMessage(payload.message);
     },
+    // getMessages: (state, { payload }) => {
+    //   // const currentChannelId = payload.currentChannelId;
+    //   // state.messages = action.payload.messages.filter((message) => message.channelId == currentChannelId);
+
+    //   state.messages = state.messages.filter((message) => message.channelId == state.currentChannelId);      
+    // },    
   },
   // extraReducers: (builder) => {
   //   builder.addCase(fetchData.fulfilled, (state, action) => {
@@ -32,6 +52,7 @@ const messageSlice = createSlice({
   // },
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, getMessages);
+    // builder.addCase(setCurrentChannel, getMessages);
   },
 });
 

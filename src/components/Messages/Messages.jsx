@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 
 const Messages = () => {
   const { t } = useTranslation();
-  const messages = useSelector((state) => state.messagesInfo.messages);
-  const messagesCount = useSelector((state) => state.messagesInfo.length);
   const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
   const channels = useSelector((state) => state.channelsInfo.channels);
   const currentChanelName = _.find(channels, (channel) => channel.id === currentChannelId);
+  const messages = useSelector((state) => state.messagesInfo.messages)
+    .filter((message) => message.channelId == currentChannelId);
+  const messagesCount = useSelector((state) => state.messagesInfo.length);
 
   return (
     <div className="col p-0 h-100">
@@ -20,10 +21,9 @@ const Messages = () => {
             <b>
               {t('channels.tag')} {currentChanelName?.name}
             </b>
-            {/* <b># </b> */}
           </p>
           <span className="text-muted">
-            {messagesCount} {t('messages.messages')}
+            {messages.length} {t('messages.messages')}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, useFormik } from 'formik';
 import { Form as BootstrapForm, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
@@ -6,11 +6,15 @@ import SocketContext from '../../contexts/SocketContext.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { removeChannel, fetchData } from '../../app/thunks.jsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const channelId = useSelector((state) => state.modalInfo.extra.channelId);
+  const { t } = useTranslation();
 
   // subscribe remove channel
   socket.on('removeChannel', (payload) => {
@@ -18,6 +22,19 @@ const RemoveChannel = () => {
   });
 
   const handleClose = () => dispatch(closeModal());
+
+  const notify = () => {
+    toast.success(t('notifies.removeChannel'), {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };     
 
   return (
     <Formik
@@ -30,6 +47,7 @@ const RemoveChannel = () => {
           // resetForm({ channelName: '' });
           if (removeChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
             dispatch(fetchData());
+            notify();
           }
           handleClose();
         } catch (err) {
@@ -62,6 +80,7 @@ const RemoveChannel = () => {
               </div>
             </Form>
           </Modal.Body>
+          <ToastContainer />
         </Modal>
       )}
     </Formik>

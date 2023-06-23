@@ -8,11 +8,22 @@ import { closeModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
 import cn from 'classnames';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+
+
 
 const AddChannel = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { channels } = useSelector((state) => state.channelsInfo);
+  const { type } = useSelector((state) => state.modalInfo.type);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    console.log('type   ', type)
+  }, type)
 
   // subscribe new channel
   socket.on('newChannel', (payload) => {
@@ -35,6 +46,19 @@ const AddChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
+  const notify = () => {
+    toast.success(t('notifies.addChannel'), {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };     
+
   return (
     <Formik
       initialValues={{ channelName: '' }}
@@ -50,6 +74,7 @@ const AddChannel = () => {
           resetForm({ channelName: '' });
           if (addNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
             dispatch(fetchData());
+            notify();
           }
           handleClose();
         } catch (err) {
@@ -90,15 +115,19 @@ const AddChannel = () => {
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
                   Отменить
                 </Button>
-                <Button type="submit" className="btn btn-primary" disabled="">
+                <Button type="submit"
+                  lassName="btn btn-primary" 
+                  disabled="">
                   Отправить
                 </Button>
               </div>
             </Form>
             {/* )} */}
           </Modal.Body>
+          <ToastContainer />
         </Modal>
       )}
+      
     </Formik>
   );
 };

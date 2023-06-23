@@ -6,9 +6,10 @@ import axios from 'axios';
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
   const fetchedData = await axios.get('/api/v1/data', {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`,
     },
   });
+
   return fetchedData.data;
 });
 

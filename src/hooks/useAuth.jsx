@@ -9,8 +9,6 @@ export const AuthContextProvider = ({ children }) => {
   // const currentUser = JSON.parse(localStorage.getItem('user'));
   // const [user, setUser] = useState(currentUser);
 
-  console.log('🚀 ~ file: useAuth.jsx ~ line 9 ~ AuthContextProvider ~ user', user);
-  console.log('🚀 ~ file: useAuth.jsx ~ line 9 ~ AuthContextProvider ~ user TYPE', typeof user);
   const navigate = useNavigate();
 
   const logIn = async (token) => {

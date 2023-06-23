@@ -7,10 +7,11 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import cn from 'classnames';
 import { useEffect } from 'react';
-import { event } from 'jquery';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { getMessages, actions } from '../../slices/messageSlice.js'
+import { fetchData } from '../../app/thunks.jsx';
 
 const Channels = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ const Channels = () => {
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
   // const [activeButtonId, setActiveButtonId] = useState();
   const { t } = useTranslation();
-  const notify = () => toast('Wow so easy!');
 
   useEffect(() => {
     dispatch(setCurrentChannel(currentChannel));
+    // dispatch(getMessages());
   }, currentChannel);
 
   const handleAddChannel = (event) => {
@@ -30,8 +31,13 @@ const Channels = () => {
   };
 
   const handleChannelClick = (id) => {
-    setCurrentChannel(id);
+    // setCurrentChannel(id);
     dispatch(setCurrentChannel(id));
+    dispatch(fetchData());
+
+    // dispatch(actions.getMessages());
+    // dispatch(getMessages());
+    // getMessages();
   };
 
   const handleRemoveClick = (id) => {
@@ -46,7 +52,6 @@ const Channels = () => {
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('channels.title')}</span>
-        {/* <button onClick={notify}>W</button> */}
         <button
           type="button"
           onClick={handleAddChannel}
@@ -122,6 +127,7 @@ const Channels = () => {
           </li>
         ))}
       </ul>
+      <ToastContainer />
     </div>
   );
 };

@@ -31,5 +31,10 @@ export default {
       wrongLength: 'От 3 до 20 символов',
       necessary: 'Обязательное поле',
     },
+    notifies: {
+      addChannel: 'Канал создан',
+      removeChannel: 'Канал удален',
+      renameChannel: 'Канал переименован'
+    }
   },
 };
