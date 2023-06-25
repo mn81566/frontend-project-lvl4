@@ -1,7 +1,5 @@
-// import { useContext } from 'react';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import SocketContext from '../contexts/SocketContext.js';
 
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
   const fetchedData = await axios.get('/api/v1/data', {
@@ -18,7 +16,7 @@ export const addNewMessage = createAsyncThunk(
   async ({ socket, textMessage, currentChannel }) => {
     socket.emit(
       'newMessage',
-      { body: textMessage, channelId: currentChannel, username: 'admin' }
+      { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) }
     );
   }
 );

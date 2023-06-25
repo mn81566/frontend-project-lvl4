@@ -34,7 +34,7 @@ export default {
     notifies: {
       addChannel: 'Канал создан',
       removeChannel: 'Канал удален',
-      renameChannel: 'Канал переименован'
-    }
+      renameChannel: 'Канал переименован',
+    },
   },
 };

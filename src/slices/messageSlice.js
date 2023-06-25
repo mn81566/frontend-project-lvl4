@@ -1,8 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { fetchData, addNewMessage } from '../app/thunks.jsx';
 import { useContext } from 'react';
+import { fetchData, addNewMessage } from '../app/thunks.jsx';
 import { setCurrentChannel } from './channelsSlice.js';
 
 export const getMessages = (state, action) => {
@@ -13,7 +12,6 @@ export const getMessages = (state, action) => {
   // action.payload.messages.forEach((message) => {
   //   state.messages.push(message);
   // });
-
 
   // const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
 
@@ -35,15 +33,15 @@ const messageSlice = createSlice({
   // initialState: messagesAdapter.getInitialState(),
   initialState,
   reducers: {
-    addMessage: (state, { payload }) => {      
+    addMessage: (state, { payload }) => {
       addNewMessage(payload.message);
     },
     // getMessages: (state, { payload }) => {
     //   // const currentChannelId = payload.currentChannelId;
     //   // state.messages = action.payload.messages.filter((message) => message.channelId == currentChannelId);
 
-    //   state.messages = state.messages.filter((message) => message.channelId == state.currentChannelId);      
-    // },    
+    //   state.messages = state.messages.filter((message) => message.channelId == state.currentChannelId);
+    // },
   },
   // extraReducers: (builder) => {
   //   builder.addCase(fetchData.fulfilled, (state, action) => {

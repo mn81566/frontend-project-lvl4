@@ -11,7 +11,10 @@ import SocketContext from '../../contexts/SocketContext.js';
 const MessageForm = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
-  const { currentChannel } = useSelector((state) => state.channelsInfo);
+  const { currentChannel } = useSelector((state) => {
+    console.log("🚀 ~ file: MessageForm.jsx:15 ~ const{currentChannel}=useSelector ~ state:", state)    
+    return state.channelsInfo
+  });
   filter.add(filter.getDictionary('en'))
   filter.add(filter.getDictionary('ru'))  
   const [isMessageInputDisable, setIsMessageInputDisable] = useState(false);

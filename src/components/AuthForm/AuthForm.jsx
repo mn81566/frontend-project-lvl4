@@ -43,14 +43,13 @@ const AuthForm = () => {
       initialValues={{ username: '', password: '' }}
       validationSchema={AuthSchema}
       onSubmit={async (values) => {
-        console.log("🚀 ~ file: AuthForm.jsx:46 ~ onSubmit={ ~ values:", values)
         try {
           const {
-            data: { token },
+            data: { token, username },
           } = await axios.post('/api/v1/login', values);
           // const res = await axios.post('/api/v1/login', values);
           // localStorage.setItem('userId', JSON.stringify(token));
-          logIn(token);
+          logIn({token, username});
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);
         } catch (err) {
