@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, useFormik } from 'formik';
-import { Form as BootstrapForm, Button } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import { Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
 
@@ -12,7 +12,6 @@ const MessageForm = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { currentChannel } = useSelector((state) => {
-    console.log("🚀 ~ file: MessageForm.jsx:15 ~ const{currentChannel}=useSelector ~ state:", state)    
     return state.channelsInfo
   });
   filter.add(filter.getDictionary('en'))
@@ -30,7 +29,6 @@ const MessageForm = () => {
       initialValues={{ message: '' }}
       validationSchema={MessageSchema}
       onSubmit={async (values, { resetForm }) => {
-        // const textMessage = values.message;
         const textMessage = filter.clean(values.message);     
 
         try {
@@ -42,6 +40,7 @@ const MessageForm = () => {
             resetForm({ message: '' });
             dispatch(fetchData());
             setIsMessageInputDisable(false);
+            scrollToBottom();
           }
         } catch (err) {
           console.log(err);
