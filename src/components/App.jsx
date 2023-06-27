@@ -3,9 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
-  useLocation,
-  useNavigate,
   Navigate,
   Outlet,
 } from 'react-router-dom';
@@ -24,10 +21,10 @@ import '../app/locales/index.js';
 import { useTranslation } from 'react-i18next';
 
 const HomeLayout = () => {
-  const { user } = useAuth();
-  if (user) {
-    return <Navigate to={ROUTES.root} />;
-  }
+  // const { user } = useAuth();
+  // if (user) {
+  //   return <Navigate to={ROUTES.root} />;
+  // }
 
   return <Outlet />;
 };
