@@ -1,17 +1,19 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-const NoMatch = () => {
-  let location = useLocation();
+function NoMatch() {
+  const location = useLocation();
 
   return (
     <>
       <h1>404</h1>
       <div>
-        No location <code>{location.pathname}</code>
+        No location
+        {' '}
+        <code>{location.pathname}</code>
       </div>
     </>
   );
-};
+}
 
 export default NoMatch;

@@ -29,7 +29,9 @@ export default {
     },
     error: {
       wrongLength: 'От 3 до 20 символов',
+      wrongLengthPassword: 'Не менее 6 символов',
       necessary: 'Обязательное поле',
+      notSamePasswords: 'Пароли должны совпадать',
     },
     notifies: {
       addChannel: 'Канал создан',

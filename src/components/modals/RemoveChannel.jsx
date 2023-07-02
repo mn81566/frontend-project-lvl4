@@ -1,16 +1,20 @@
 import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form, Field, useFormik } from 'formik';
-import { Form as BootstrapForm, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import {
+  Formik, Form, Field, useFormik,
+} from 'formik';
+import {
+  Form as BootstrapForm, Button, Modal, FormGroup, FormControl,
+} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { removeChannel, fetchData } from '../../app/thunks.jsx';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useTranslation } from 'react-i18next';
 
-const RemoveChannel = () => {
+function RemoveChannel() {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const channelId = useSelector((state) => state.modalInfo.extra.channelId);
@@ -25,16 +29,16 @@ const RemoveChannel = () => {
 
   const notify = () => {
     toast.success(t('notifies.removeChannel'), {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
-  };     
+  };
 
   return (
     <Formik
@@ -42,7 +46,7 @@ const RemoveChannel = () => {
       onSubmit={async (values, { resetForm }) => {
         try {
           const removeChannelDispatchResponse = await dispatch(
-            removeChannel({ socket, channelId })
+            removeChannel({ socket, channelId }),
           );
           // resetForm({ channelName: '' });
           if (removeChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
@@ -65,7 +69,7 @@ const RemoveChannel = () => {
               aria-label="Close"
               data-bs-dismiss="modal"
               className="btn btn-close"
-            ></Button>
+            />
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -85,6 +89,6 @@ const RemoveChannel = () => {
       )}
     </Formik>
   );
-};
+}
 
 export default RemoveChannel;

@@ -1,28 +1,31 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form, Field, useFormik } from 'formik';
-import { Form as BootstrapForm, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import {
+  Formik, Form, Field, useFormik,
+} from 'formik';
+import {
+  Form as BootstrapForm, Button, Modal, FormGroup, FormControl,
+} from 'react-bootstrap';
 import * as yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { renameChannel, fetchData } from '../../app/thunks.jsx';
 // import { AddChannelSchema } from '../../app/utils/validate.js';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useTranslation } from 'react-i18next';
 
-const RemoveChannel = () => {
+function RemoveChannel() {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const inputRef = useRef();
   const { channelId } = useSelector((state) => state.modalInfo.extra);
   const renamedChannelName = useSelector(
-    (state) => state.channelsInfo.channels.find((channel) => channel.id === channelId).name
+    (state) => state.channelsInfo.channels.find((channel) => channel.id === channelId).name,
   );
   const channels = useSelector((state) => state.channelsInfo.channels);
   // const schema = getSchema(channels);
   const { t } = useTranslation();
-
 
   useEffect(() => {
     inputRef.current.focus();
@@ -32,43 +35,43 @@ const RemoveChannel = () => {
     // prettier-ignore
     channelName: yup.string()
       .required()
-      .min(3, "От 3 до 20 символов!")
-      .max(20, "От 3 до 20 символов!")
-      .notOneOf([channels.map((channel) => channel.name)], "Должно быть уникальным"),
+      .min(3, 'От 3 до 20 символов!')
+      .max(20, 'От 3 до 20 символов!')
+      .notOneOf([channels.map((channel) => channel.name)], 'Должно быть уникальным'),
   });
 
   const handleClose = () => dispatch(closeModal());
 
   const notify = () => {
     toast.success(t('notifies.renameChannel'), {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
-  };    
+  };
 
   return (
     <Formik
       initialValues={{ channelName: renamedChannelName }}
       validationSchema={RenameChannelSchema}
       onSubmit={async (values, { resetForm }) => {
-        const channelName = values.channelName;
+        const { channelName } = values;
 
         // try {
-          const renameNewChannelDispatchResponse = await dispatch(
-            renameChannel({ socket, id: channelId, name: channelName })
-          );
-          resetForm({ channelName: '' });
-          if (renameNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
-            dispatch(fetchData());
-            notify();
-          }
-          handleClose();
+        const renameNewChannelDispatchResponse = await dispatch(
+          renameChannel({ socket, id: channelId, name: channelName }),
+        );
+        resetForm({ channelName: '' });
+        if (renameNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
+          dispatch(fetchData());
+          notify();
+        }
+        handleClose();
         // } catch (err) {
         //   throw err;
         // }
@@ -85,7 +88,7 @@ const RemoveChannel = () => {
               aria-label="Close"
               data-bs-dismiss="modal"
               className="btn btn-close"
-            ></Button>
+            />
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -101,7 +104,7 @@ const RemoveChannel = () => {
               />
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
-              ) : null}              
+              ) : null}
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
                   Отменить
@@ -117,6 +120,6 @@ const RemoveChannel = () => {
       )}
     </Formik>
   );
-};
+}
 
 export default RemoveChannel;

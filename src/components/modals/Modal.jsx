@@ -1,8 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import AddChannel from './AddChannel.jsx';
 import RemoveChannel from './RemoveChannel.jsx';
 import RenameChannel from './RenameChannel.jsx';
-import { useSelector } from 'react-redux';
 
 export const modals = {
   addChannel: AddChannel,
@@ -10,7 +10,7 @@ export const modals = {
   renameChannel: RenameChannel,
 };
 
-const Modal = () => {
+function Modal() {
   const { type, isOpened } = useSelector((state) => state.modalInfo);
 
   if (!isOpened || !modals[type]) {
@@ -18,6 +18,6 @@ const Modal = () => {
   }
   const Component = modals[type];
   return <Component />;
-};
+}
 
 export default Modal;

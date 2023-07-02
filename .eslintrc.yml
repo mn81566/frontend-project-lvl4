@@ -12,3 +12,9 @@ parserOptions:
 plugins:
   - react
 rules: {}
+overrides:
+  - files:
+      - "**/*.jsx"
+    parserOptions:
+      ecmaFeatures:
+        jsx: true

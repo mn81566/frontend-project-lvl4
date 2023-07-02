@@ -1,27 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Form as BootstrapForm, Button } from 'react-bootstrap';
 import * as yup from 'yup';
-import { useState } from 'react';
 // import routes from "../../../server/routes.js";
 import axios from 'axios';
-import { useAuth } from 'react-use-auth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import AuthContext from '../../contexts/AuthContext.js';
 import { AuthSchema } from '../../app/utils/validate.js';
-import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-const AuthForm = () => {
+function AuthForm() {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
   const [authData, setAuthData] = useState({
     username: '',
     password: '',
   });
-  const location = useLocation();
-  const navigate = useNavigate();
-  const auth = useAuth();
   const { logIn } = useContext(AuthContext);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // const AuthSchema = yup.object().shape({
   //   // prettier-ignore
@@ -49,9 +46,10 @@ const AuthForm = () => {
           } = await axios.post('/api/v1/login', values);
           // const res = await axios.post('/api/v1/login', values);
           // localStorage.setItem('userId', JSON.stringify(token));
-          logIn({token, username});
+          logIn({ token, username });
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);
+          navigate(ROUTES.root, { replace: true });
         } catch (err) {
           console.log(err);
           throw err;
@@ -68,10 +66,15 @@ const AuthForm = () => {
               name="username"
               autoComplete="username"
               required
-              className="form-control"
+              className={cn(
+                "form-control",
+                {
+                  "is-invalid": errors.username && touched.username
+                }
+              )}
             />
             <label htmlFor="username">{t('auth.nameInput')}</label>
-            {errors.username && touched.username ? <span>{errors.username}</span> : null}
+            {errors.username && touched.username ? <div placement="right" className="invalid-tooltip">{errors.username}</div> : null}
           </BootstrapForm.Group>
           <BootstrapForm.Group className="form-floating mb-4">
             <Field
@@ -80,12 +83,17 @@ const AuthForm = () => {
               name="password"
               autoComplete="password"
               required
-              className="form-control"
+              className={cn(
+                "form-control",
+                {
+                  "is-invalid": errors.password && touched.password
+                }
+              )}
             />
             <label className="form-label" htmlFor="password">
               {t('auth.passwordInput')}
             </label>
-            {errors.password && touched.password ? <span>{errors.password}</span> : null}
+            {errors.password && touched.password ? <div placement="right" className="invalid-tooltip">{errors.password}</div> : null}
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
             {t('auth.loginFormButton')}
@@ -94,6 +102,6 @@ const AuthForm = () => {
       )}
     </Formik>
   );
-};
+}
 
 export default AuthForm;

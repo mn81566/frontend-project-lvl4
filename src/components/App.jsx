@@ -6,6 +6,8 @@ import {
   Navigate,
   Outlet,
 } from 'react-router-dom';
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import Main from './Main/Main.jsx';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
@@ -15,31 +17,29 @@ import { AuthContextProvider, useAuth } from '../hooks/useAuth.jsx';
 import AuthContext from '../contexts/AuthContext';
 import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
-import cn from 'classnames';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
-import { useTranslation } from 'react-i18next';
 
-const HomeLayout = () => {
+function HomeLayout() {
   // const { user } = useAuth();
   // if (user) {
   //   return <Navigate to={ROUTES.root} />;
   // }
 
   return <Outlet />;
-};
+}
 
-const ProtectedRoute = ({ children }) => {
+function ProtectedRoute({ children }) {
   const { user } = useAuth();
-  
+
   if (!user) {
     return <Navigate to={ROUTES.login} />;
   }
 
   return children;
-};
+}
 
-const App = () => {
+function App() {
   const { t } = useTranslation();
 
   return (
@@ -62,23 +62,23 @@ const App = () => {
 
         <Routes>
           <Route element={<HomeLayout />}>
-            <Route path={ROUTES.login} element={<Login />}></Route>
-            <Route path={ROUTES.signup} element={<SignUp />}></Route>
+            <Route path={ROUTES.login} element={<Login />} />
+            <Route path={ROUTES.signup} element={<SignUp />} />
           </Route>
-          <Route path="*" element={<NoMatch />}></Route>
+          <Route path="*" element={<NoMatch />} />
           <Route
             path={ROUTES.root}
-            element={
+            element={(
               <ProtectedRoute>
                 <Main />
               </ProtectedRoute>
-            }
-          ></Route>
+            )}
+          />
         </Routes>
         <Modal />
       </div>
     </AuthContextProvider>
   );
-};
+}
 
 export default App;

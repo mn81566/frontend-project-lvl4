@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, useFormik } from 'formik';
+import {
+  Formik, Form, Field, useFormik,
+} from 'formik';
 import { Form as BootstrapForm, Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
+import cn from 'classnames';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
-import cn from 'classnames';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useTranslation } from 'react-i18next';
 
-
-
-const AddChannel = () => {
+function AddChannel() {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { channels } = useSelector((state) => state.channelsInfo);
@@ -22,8 +22,8 @@ const AddChannel = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log('type   ', type)
-  }, type)
+    console.log('type   ', type);
+  }, type);
 
   // subscribe new channel
   socket.on('newChannel', (payload) => {
@@ -39,25 +39,25 @@ const AddChannel = () => {
     // prettier-ignore
     channelName: yup.string()
       .required()
-      .min(3, "От 3 до 20 символов!")
-      .max(20, "От 3 до 20 символов!")
-      .notOneOf([channels.map((channel) => channel.name)], "Должно быть уникальным"),
+      .min(3, 'От 3 до 20 символов!')
+      .max(20, 'От 3 до 20 символов!')
+      .notOneOf([channels.map((channel) => channel.name)], 'Должно быть уникальным'),
   });
 
   const handleClose = () => dispatch(closeModal());
 
   const notify = () => {
     toast.success(t('notifies.addChannel'), {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
-  };     
+  };
 
   return (
     <Formik
@@ -65,11 +65,11 @@ const AddChannel = () => {
       validationSchema={AddChannelSchema}
       validateOnChange={false}
       onSubmit={async (values, { resetForm }) => {
-        const channelName = values.channelName;
+        const { channelName } = values;
 
         try {
           const addNewChannelDispatchResponse = await dispatch(
-            addNewChannel({ socket, channelName })
+            addNewChannel({ socket, channelName }),
           );
           resetForm({ channelName: '' });
           if (addNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
@@ -92,7 +92,7 @@ const AddChannel = () => {
               aria-label="Close"
               data-bs-dismiss="modal"
               className="btn btn-close"
-            ></Button>
+            />
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -115,9 +115,11 @@ const AddChannel = () => {
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
                   Отменить
                 </Button>
-                <Button type="submit"
-                  lassName="btn btn-primary" 
-                  disabled="">
+                <Button
+                  type="submit"
+                  lassName="btn btn-primary"
+                  disabled=""
+                >
                   Отправить
                 </Button>
               </div>
@@ -127,9 +129,9 @@ const AddChannel = () => {
           <ToastContainer />
         </Modal>
       )}
-      
+
     </Formik>
   );
-};
+}
 
 export default AddChannel;

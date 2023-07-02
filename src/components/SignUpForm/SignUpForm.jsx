@@ -1,26 +1,19 @@
-import React, { useContext } from 'react';
-import { Formik, Form, Field, useFormik } from 'formik';
-import { Form as BootstrapForm, Button } from 'react-bootstrap';
-import * as yup from 'yup';
-import { useState } from 'react';
-// import routes from "../../../server/routes.js";
+import React, { useContext, useState } from 'react';
+import {
+  Formik, Form, Field,
+} from 'formik';
+import { Form as BootstrapForm } from 'react-bootstrap';
 import axios from 'axios';
-import { useAuth } from 'react-use-auth';
-import { useLocation, useNavigate } from 'react-router-dom';
-import AuthContext from '../../contexts/AuthContext.js';
-import { SignUpSchema } from '../../app/utils/validate.js';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import AuthContext from '../../contexts/AuthContext.js';
+import { SignUpSchema } from '../../app/utils/validate.js';
 
-const SignUpForm = () => {
-  // const [isFailedValidation, setIsFailedValidation] = useState(true);
+function SignUpForm() {
   const [authData, setAuthData] = useState({
     username: '',
     password: '',
   });
-  const location = useLocation();
-  const navigate = useNavigate();
-  const auth = useAuth();
   const { logIn } = useContext(AuthContext);
   const [isUserExists, setIsUserExists] = useState(false);
   const { t } = useTranslation();
@@ -32,15 +25,15 @@ const SignUpForm = () => {
       onSubmit={async (values) => {
         try {
           const {
-            data: { token },
+            data: { token, username },
           } = await axios.post('/api/v1/signup', {
             username: values.username,
             password: values.password,
           });
-          logIn(token);
+          logIn({ token, username });
           setIsUserExists(false);
-          const { from } = { from: { pathname: '/' } };
-          navigate(from);
+          // const { from } = { from: { pathname: '/' } };
+          // navigate(from);
         } catch (err) {
           if (err.response.status === 409) {
             setIsUserExists(true);
@@ -64,7 +57,7 @@ const SignUpForm = () => {
               })}
             />
             <label htmlFor="username">{t('signup.nameInput')}</label>
-            {errors.username && touched.username ? <span>{errors.username}</span> : null}
+            {errors.username && touched.username ? <div placement="right" className="invalid-tooltip">{errors.username}</div> : null}
           </BootstrapForm.Group>
           <BootstrapForm.Group className="form-floating mb-4">
             <Field
@@ -80,7 +73,7 @@ const SignUpForm = () => {
             <label className="form-label" htmlFor="password">
               {t('signup.passwordInput')}
             </label>
-            {errors.password && touched.password ? <span>{errors.password}</span> : null}
+            {errors.password && touched.password ? <div placement="right" className="invalid-tooltip">{errors.password}</div> : null}
           </BootstrapForm.Group>
           <BootstrapForm.Group className="form-floating mb-4">
             <Field
@@ -97,9 +90,7 @@ const SignUpForm = () => {
             <label className="form-label" htmlFor="passwordConfirmation">
               {t('signup.passwordConfirmationInput')}
             </label>
-            {errors.passwordConfirmation && touched.passwordConfirmation ? (
-              <span>{errors.passwordConfirmation}</span>
-            ) : null}
+            {errors.passwordConfirmation && touched.passwordConfirmation ? <div placement="right" className="invalid-tooltip">{errors.passwordConfirmation}</div> : null}
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
             {t('signup.signupButton')}
@@ -108,6 +99,6 @@ const SignUpForm = () => {
       )}
     </Formik>
   );
-};
+}
 
 export default SignUpForm;

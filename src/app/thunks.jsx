@@ -16,28 +16,28 @@ export const addNewMessage = createAsyncThunk(
   async ({ socket, textMessage, currentChannel }) => {
     socket.emit(
       'newMessage',
-      { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) }
+      { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
     );
-  }
+  },
 );
 
 export const addNewChannel = createAsyncThunk(
   'channels/addNewChannel',
   async ({ socket, channelName }) => {
     socket.emit('newChannel', { name: channelName });
-  }
+  },
 );
 
 export const renameChannel = createAsyncThunk(
   'channels/renameChannel',
   async ({ socket, id, name }) => {
     socket.emit('renameChannel', { id, name });
-  }
+  },
 );
 
 export const removeChannel = createAsyncThunk(
   'channels/removeChannel',
   async ({ socket, channelId }) => {
     socket.emit('removeChannel', { id: channelId });
-  }
+  },
 );

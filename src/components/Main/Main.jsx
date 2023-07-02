@@ -1,6 +1,8 @@
 import React, { Component, useContext, useEffect } from 'react';
+import {
+  Provider, useDispatch, useSelector, batch,
+} from 'react-redux';
 import AuthContext from '../../contexts/AuthContext.js';
-import { Provider, useDispatch, useSelector, batch } from 'react-redux';
 // import { getChats } from '../../slices/chatSlice.js';
 import { fetchData } from '../../app/thunks.jsx';
 // import { channelsSelectors } from '../../slices/channelsSlice.js';
@@ -10,7 +12,7 @@ import Messages from '../Messages/Messages.jsx';
 import './Main.scss';
 // import SocketContext from '../../contexts/SocketContext.js';
 
-const Main = () => {
+function Main() {
   const dispatch = useDispatch();
   // const channelsData = useSelector(channelsSelectors.selectAll);
   const channelsData = useSelector((state) => state.channelsInfo.channels);
@@ -34,6 +36,6 @@ const Main = () => {
       </>
     )
   );
-};
+}
 
 export default Main;
