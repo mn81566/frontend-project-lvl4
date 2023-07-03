@@ -4,6 +4,6 @@
 
 [![Node CI](https://github.com/mn81566/frontend-project-lvl4/workflows/Node%20CI/badge.svg)](https://github.com/mn81566/frontend-project-lvl4/actions)
 
-### Heroku:
+### Railway:
 
-https://boiling-brook-94444.herokuapp.com/
+https://frontend-project-lvl4-production-c8a3.up.railway.app/
