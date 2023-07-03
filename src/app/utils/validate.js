@@ -28,7 +28,6 @@ export const AuthSchema = yup.object().shape({
   // prettier-ignore
   password: yup.string()
     .required(i18next.t('error.necessary'))
-    .min(6, i18next.t('error.wrongLengthPassword')),
 });
 
 export const SignUpSchema = yup.object().shape({

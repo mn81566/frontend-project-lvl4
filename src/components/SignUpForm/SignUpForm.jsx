@@ -8,6 +8,8 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import AuthContext from '../../contexts/AuthContext.js';
 import { SignUpSchema } from '../../app/utils/validate.js';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../app/system/routes.js'
 
 function SignUpForm() {
   const [authData, setAuthData] = useState({
@@ -17,6 +19,7 @@ function SignUpForm() {
   const { logIn } = useContext(AuthContext);
   const [isUserExists, setIsUserExists] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -34,6 +37,7 @@ function SignUpForm() {
           setIsUserExists(false);
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);
+          navigate(ROUTES.root, { replace: true });
         } catch (err) {
           if (err.response.status === 409) {
             setIsUserExists(true);
