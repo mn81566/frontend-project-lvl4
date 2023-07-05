@@ -53,6 +53,8 @@ function MessageForm() {
               type="textarea"
               id="message"
               name="message"
+              aria-label="Новое сообщение"
+              placeholder="Введите сообщение..."
               required
               className="border-0 p-0 ps-2 form-control"
               disabled={isMessageInputDisable}
