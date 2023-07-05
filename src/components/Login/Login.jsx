@@ -14,7 +14,7 @@ function Login() {
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <img
-                  src="http://localhost:8090/assets/images/login.jpg"
+                  src="http://localhost:8090/src/assets/images/login.jpg"
                   className="rounded-circle"
                   alt={t('auth.loginTitle')}
                 />
