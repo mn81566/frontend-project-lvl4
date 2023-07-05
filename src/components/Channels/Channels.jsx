@@ -111,7 +111,9 @@ function Channels() {
                     )}
                     variant="link"
                     color="red"
-                  />
+                  >
+                    <span className="visually-hidden">Управление каналом</span>
+                  </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item eventKey="1" onClick={() => handleRemoveClick(channel.id)}>
                       Удалить

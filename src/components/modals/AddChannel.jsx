@@ -108,6 +108,7 @@ function AddChannel() {
                   'is-invalid': errors.channelName,
                 })}
               />
+              <label className="visually-hidden" for="name">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}

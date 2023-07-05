@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Formik, Form, Field, useFormik,
+  Formik, Form, Field
 } from 'formik';
 import {
   Form as BootstrapForm, Button, Modal, FormGroup, FormControl,
@@ -102,6 +102,7 @@ function RemoveChannel() {
                 required
                 className="mb-2 form-control"
               />
+              <label class="visually-hidden" for="name">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}
