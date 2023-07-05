@@ -31,3 +31,6 @@ test:
 	npm test -s
 
 .PHONY: test
+
+start-all:
+	npx react-scripts start & npm run start

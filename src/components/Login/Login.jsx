@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AuthForm from '../AuthForm/AuthForm.jsx';
+import loginImage from '../../assets/images/login.jpg'
 
 function Login() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ function Login() {
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <img
-                  src="http://localhost:8090/src/assets/images/login.jpg"
+                  src={loginImage}
                   className="rounded-circle"
                   alt={t('auth.loginTitle')}
                 />

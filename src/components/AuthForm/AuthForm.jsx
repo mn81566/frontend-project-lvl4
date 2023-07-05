@@ -10,6 +10,7 @@ import AuthContext from '../../contexts/AuthContext.js';
 import { AuthSchema } from '../../app/utils/validate.js';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../app/system/routes.js'
+import i18next from '../../app/locales/index.js'
 
 function AuthForm() {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
@@ -20,6 +21,8 @@ function AuthForm() {
   const { logIn } = useContext(AuthContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [hasWrongUsernamePasswordError, setHasWrongUsernamePasswordError] = useState(false);
+
 
   // const AuthSchema = yup.object().shape({
   //   // prettier-ignore
@@ -40,8 +43,9 @@ function AuthForm() {
     <Formik
       initialValues={{ username: '', password: '' }}
       validationSchema={AuthSchema}
-      onSubmit={async (values) => {
+      onSubmit={async (values, actions) => {
         try {
+          setHasWrongUsernamePasswordError(false)
           const {
             data: { token, username },
           } = await axios.post('/api/v1/login', values);
@@ -51,8 +55,12 @@ function AuthForm() {
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);
           navigate(ROUTES.root, { replace: true });
-        } catch (err) {
-          console.log(err);
+        } 
+        catch (err) {
+          if (err.response.data.statusCode === 401) {
+            setHasWrongUsernamePasswordError(true)
+          }
+
           throw err;
         }
       }}
@@ -70,7 +78,7 @@ function AuthForm() {
               className={cn(
                 "form-control",
                 {
-                  "is-invalid": errors.username && touched.username
+                  "is-invalid": errors.username && touched.username || hasWrongUsernamePasswordError
                 }
               )}
             />
@@ -87,7 +95,7 @@ function AuthForm() {
               className={cn(
                 "form-control",
                 {
-                  "is-invalid": errors.password && touched.password
+                  "is-invalid": errors.password && touched.password || hasWrongUsernamePasswordError
                 }
               )}
             />
@@ -95,6 +103,7 @@ function AuthForm() {
               {t('auth.passwordInput')}
             </label>
             {errors.password && touched.password ? <div placement="right" className="invalid-tooltip">{errors.password}</div> : null}
+            {hasWrongUsernamePasswordError ? <div placement="right" className="invalid-tooltip">{i18next.t('error.wrongNameOrPassword')}</div> : null}            
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
             {t('auth.loginFormButton')}
