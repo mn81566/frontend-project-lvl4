@@ -38,7 +38,7 @@ function MessageForm() {
             resetForm({ message: '' });
             dispatch(fetchData());
             setIsMessageInputDisable(false);
-            scrollToBottom();
+            // scrollToBottom();
           }
         } catch (err) {
           console.log(err);

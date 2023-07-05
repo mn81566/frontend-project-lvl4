@@ -4,13 +4,6 @@
   "description": "",
   "main": "server/plugin.js",
   "type": "module",
-  "scripts": {
-    "test": "jest",
-    "prebuild": "rm -rf dist",
-    "build": "webpack",
-    "start": "fastify start server/plugin.js -l info -P -a 0.0.0.0",
-    "dev": "webpack serve"
-  },
   "jest": {
     "transform": {}
   },
@@ -31,8 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts build",
     "eject": "react-scripts eject"
-  },  
+  },
   "dependencies": {
+    "@fastify/static": "^6.10.2",
     "@hexlet/chat-server": "^1.1.6",
     "@reduxjs/toolkit": "^1.8.2",
     "@rollbar/react": "^0.11.1",
@@ -48,7 +42,6 @@
     "fastify-secure-session": "^3.0.0",
     "fastify-sensible": "^3.1.2",
     "fastify-socket.io": "^3.0.0",
-    "fastify-static": "^4.5.0",
     "formik": "^2.2.9",
     "history": "^5.3.0",
     "http-errors": "^2.0.0",
@@ -109,5 +102,17 @@
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
