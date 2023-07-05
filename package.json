@@ -26,7 +26,6 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@fastify/static": "^6.10.2",
     "@hexlet/chat-server": "^1.1.6",
     "@reduxjs/toolkit": "^1.8.2",
     "@rollbar/react": "^0.11.1",
@@ -42,6 +41,7 @@
     "fastify-secure-session": "^3.0.0",
     "fastify-sensible": "^3.1.2",
     "fastify-socket.io": "^3.0.0",
+    "fastify-static": "^4.5.0",
     "formik": "^2.2.9",
     "history": "^5.3.0",
     "http-errors": "^2.0.0",
