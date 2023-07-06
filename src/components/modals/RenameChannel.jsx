@@ -102,7 +102,7 @@ function RemoveChannel() {
                 required
                 className="mb-2 form-control"
               />
-              <label class="visually-hidden" for="name">Имя канала</label>
+              <label class="visually-hidden" for="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}
