@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../app/thunks.jsx';
 
 const getChannels = (state, action) => {

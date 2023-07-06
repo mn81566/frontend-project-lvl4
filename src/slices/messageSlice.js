@@ -1,8 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { useContext } from 'react';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchData, addNewMessage } from '../app/thunks.jsx';
-import { setCurrentChannel } from './channelsSlice.js';
 
 export const getMessages = (state, action) => {
   // if (!state?.messages) {
@@ -34,6 +31,7 @@ const messageSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, { payload }) => {
+      console.log("🚀 ~ file: messageSlice.js:34 ~ state:", state);
       addNewMessage(payload.message);
     },
     // getMessages: (state, { payload }) => {

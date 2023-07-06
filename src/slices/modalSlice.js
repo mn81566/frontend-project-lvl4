@@ -1,6 +1,4 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import Modals from '../components/modals/AddChannel.jsx';
-import getModal, { modals } from '../components/modals/Modal.jsx';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpened: false,
@@ -17,13 +15,13 @@ const modalSlice = createSlice({
       state.type = payload.type;
       state.extra = { channelId: payload.channelId };
     },
-    closeModal: (state, { payload }) => {
+    closeModal: (state) => {
       state.isOpened = false;
       state.type = null;
       state.extra = null;
     },
   },
-  extraReducers: (builder) => {},
+  // extraReducers: (builder) => {},
 });
 
 export const { showModal, closeModal } = modalSlice.actions;
