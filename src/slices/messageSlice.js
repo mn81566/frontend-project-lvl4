@@ -5,6 +5,8 @@ export const getMessages = (state, action) => {
   // if (!state?.messages) {
   //   return;
   // }
+
+  // eslint-disable-next-line
   state.messages = [];
   // action.payload.messages.forEach((message) => {
   //   state.messages.push(message);
@@ -14,7 +16,9 @@ export const getMessages = (state, action) => {
 
   // const currentChannelId = action.payload?.currentChannelId;
   // const currentChannelId = state.channelsInfo.currentChannel;
+
   if (action.payload?.messages) {
+    // eslint-disable-next-line
     state.messages = action.payload?.messages;
   }
 };
@@ -30,15 +34,16 @@ const messageSlice = createSlice({
   // initialState: messagesAdapter.getInitialState(),
   initialState,
   reducers: {
-    addMessage: (state, { payload }) => {
-      console.log("🚀 ~ file: messageSlice.js:34 ~ state:", state);
+    addMessage: (_state, { payload }) => {
       addNewMessage(payload.message);
     },
     // getMessages: (state, { payload }) => {
     //   // const currentChannelId = payload.currentChannelId;
-    //   // state.messages = action.payload.messages.filter((message) => message.channelId == currentChannelId);
+    //   // state.messages = action.payload.messages
+    //      //.filter((message) => message.channelId == currentChannelId);
 
-    //   state.messages = state.messages.filter((message) => message.channelId == state.currentChannelId);
+    //   state.messages = state.messages
+    //      //.filter((message) => message.channelId == state.currentChannelId);
     // },
   },
   // extraReducers: (builder) => {

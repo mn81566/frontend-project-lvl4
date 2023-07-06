@@ -1,7 +1,7 @@
 // @ts-check
 
-const host = '';
-const prefix = 'api/v1';
+// const host = '';
+// const prefix = 'api/v1';
 
 const ROUTES = {
   root: '/',

@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 // const { t } = useTranslation();
 // import i18next from '../utils/i18n.js'
-import i18next from '../locales/index.js'
+import i18next from '../locales/index.js';
 
 // const getSchema = (channels) =>
 //   yup.object().shape({
@@ -26,7 +26,7 @@ export const AuthSchema = yup.object().shape({
     .max(20, i18next.t('error.wrongLength')),
   // prettier-ignore
   password: yup.string()
-    .required(i18next.t('error.necessary'))
+    .required(i18next.t('error.necessary')),
 });
 
 export const SignUpSchema = yup.object().shape({

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchData } from '../app/thunks.jsx';
 
 const getChannels = (state, action) => {
+  // eslint-disable-next-line
   state.channels = [];
   // state.currentChannel = action.payload.currentChannelId;
   action.payload.channels.forEach((channel) => {
@@ -21,6 +22,7 @@ const channelsSlice = createSlice({
   name: 'channelsInfo',
   initialState,
   reducers: {
+    // eslint-disable-next-line
     addChannel: (state, { payload }) => {
       // addNewChannel(payload.channelName);
     },
@@ -32,8 +34,10 @@ const channelsSlice = createSlice({
     // renameChannel: (state) => {},
     setCurrentChannel: (state, { payload = 1 }) => {
       if (!payload) {
+        // eslint-disable-next-line
         payload = 1;
       }
+      // eslint-disable-next-line
       state.currentChannel = payload;
 
       // fetchData();
