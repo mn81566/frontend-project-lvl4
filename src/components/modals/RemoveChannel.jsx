@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Formik, Form, Field, useFormik,
+  Formik, Form
 } from 'formik';
 import {
-  Form as BootstrapForm, Button, Modal, FormGroup, FormControl,
+  Button, Modal
 } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ function RemoveChannel() {
   const { t } = useTranslation();
 
   // subscribe remove channel
-  socket.on('removeChannel', (payload) => {
+  socket.on('removeChannel', () => {
     dispatch(setCurrentChannel(1));
   });
 
@@ -43,13 +43,13 @@ function RemoveChannel() {
   return (
     <Formik
       initialValues={{ id: '' }}
-      onSubmit={async (values, { resetForm }) => {
+      onSubmit={async () => {
         try {
           const removeChannelDispatchResponse = await dispatch(
             removeChannel({ socket, channelId }),
           );
           // resetForm({ channelName: '' });
-          if (removeChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
+          if (removeChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
             dispatch(fetchData());
             notify();
           }
@@ -59,7 +59,8 @@ function RemoveChannel() {
         }
       }}
     >
-      {({ errors, touched, handleSubmit }) => (
+      {/* {({ errors, touched, handleSubmit }) => ( */}
+      {() => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
             <Modal.Title>Удалить канал</Modal.Title>

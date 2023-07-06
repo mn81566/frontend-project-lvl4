@@ -82,6 +82,6 @@ const MessageForm = () => {
       )}
     </Formik>
   );
-}
+};
 
 export default MessageForm;

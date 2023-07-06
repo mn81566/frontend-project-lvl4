@@ -77,7 +77,7 @@ const AddChannel = () => {
         // }
       }}
     >
-      {({ errors, touched, handleSubmit }) => (
+      {({ errors, touched }) => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
             <Modal.Title>Добавить канал</Modal.Title>
@@ -103,7 +103,7 @@ const AddChannel = () => {
                   'is-invalid': errors.channelName,
                 })}
               />
-              <label className="visually-hidden" for="name">Имя канала</label>
+              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}

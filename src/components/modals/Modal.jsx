@@ -10,13 +10,14 @@ export const modals = {
   renameChannel: RenameChannel,
 };
 
-function Modal() {
+const Modal = () => {
   const { type, isOpened } = useSelector((state) => state.modalInfo);
 
   if (!isOpened || !modals[type]) {
     return null;
   }
   const Component = modals[type];
+  
   return <Component />;
 }
 

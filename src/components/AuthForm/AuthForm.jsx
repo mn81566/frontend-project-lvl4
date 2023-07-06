@@ -15,7 +15,7 @@ import i18next from '../../app/locales/index.js';
 const AuthForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
 
-  // eslint-disable-next-line  
+  // eslint-disable-next-line
   const [authData, setAuthData] = useState({
     username: '',
     password: '',
@@ -78,7 +78,7 @@ const AuthForm = () => {
               className={cn(
                 'form-control',
                 {
-                  'is-invalid': (errors.username && touched.username) || hasWrongUsernamePasswordError
+                  'is-invalid': (errors.username && touched.username) || hasWrongUsernamePasswordError,
                 },
               )}
             />
@@ -95,7 +95,7 @@ const AuthForm = () => {
               className={cn(
                 'form-control',
                 {
-                  'is-invalid': (errors.password && touched.password) || hasWrongUsernamePasswordError
+                  'is-invalid': (errors.password && touched.password) || hasWrongUsernamePasswordError,
                 },
               )}
             />
@@ -112,6 +112,6 @@ const AuthForm = () => {
       )}
     </Formik>
   );
-}
+};
 
 export default AuthForm;

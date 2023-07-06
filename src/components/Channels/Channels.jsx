@@ -131,6 +131,6 @@ const Channels = () => {
       <ToastContainer />
     </div>
   );
-}
+};
 
 export default Channels;

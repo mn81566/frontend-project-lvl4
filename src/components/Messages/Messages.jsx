@@ -17,7 +17,7 @@ const Messages = () => {
   const channels = useSelector((state) => state.channelsInfo.channels);
   const currentChanelName = _.find(channels, (channel) => channel.id === currentChannelId);
   const messages = useSelector((state) => state.messagesInfo.messages)
-    .filter((message) => message.channelId == currentChannelId);
+    .filter((message) => message.channelId === currentChannelId);
   const messageBoxId = 'messages-box';
   useEffect(() => {
     scrollToBottom(messageBoxId);
@@ -55,6 +55,6 @@ const Messages = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Messages;

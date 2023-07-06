@@ -12,6 +12,6 @@ const AuthButton = () => {
   const { t } = useTranslation();
 
   return user && <Button onClick={() => logOut()}>{t('auth.logoutButton')}</Button>;
-}
+};
 
 export default AuthButton;
