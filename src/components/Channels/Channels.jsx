@@ -10,7 +10,7 @@ import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchData } from '../../app/thunks.jsx';
 
-function Channels() {
+const Channels = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
@@ -20,7 +20,7 @@ function Channels() {
   useEffect(() => {
     dispatch(setCurrentChannel(currentChannel));
     // dispatch(getMessages());
-  }, currentChannel);
+  }, [currentChannel, dispatch]);
 
   const handleAddChannel = (event) => {
     event.preventDefault();
@@ -87,7 +87,7 @@ function Channels() {
                 variant="info"
                 // className="w-100 rounded-0 text-start btn"
                 className={cn('w-100', 'rounded-0', 'text-start', 'btn', {
-                  'btn-secondary': channel.id == currentChannel,
+                  'btn-secondary': channel.id === currentChannel,
                 })}
                 onClick={() => handleChannelClick(channel.id)}
               >
@@ -106,7 +106,7 @@ function Channels() {
                       'dropdown-toggle-split',
                       'btn',
                       {
-                        'btn-secondary': channel.id == currentChannel,
+                        'btn-secondary': channel.id === currentChannel,
                       },
                     )}
                     variant="link"

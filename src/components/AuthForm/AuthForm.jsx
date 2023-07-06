@@ -1,20 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { Form as BootstrapForm, Button } from 'react-bootstrap';
-import * as yup from 'yup';
+import { Form as BootstrapForm } from 'react-bootstrap';
 // import routes from "../../../server/routes.js";
 import axios from 'axios';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { AuthSchema } from '../../app/utils/validate.js';
-import { useNavigate } from 'react-router-dom';
 // import { ROUTES } from '../../app/system/routes.js';
 import ROUTES from '../../routes.js';
-import i18next from '../../app/locales/index.js'
+import i18next from '../../app/locales/index.js';
 
-function AuthForm() {
+const AuthForm = () => {
   // const [isFailedValidation, setIsFailedValidation] = useState(true);
+
+  // eslint-disable-next-line  
   const [authData, setAuthData] = useState({
     username: '',
     password: '',
@@ -23,7 +24,6 @@ function AuthForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [hasWrongUsernamePasswordError, setHasWrongUsernamePasswordError] = useState(false);
-
 
   // const AuthSchema = yup.object().shape({
   //   // prettier-ignore
@@ -44,9 +44,9 @@ function AuthForm() {
     <Formik
       initialValues={{ username: '', password: '' }}
       validationSchema={AuthSchema}
-      onSubmit={async (values, actions) => {
+      onSubmit={async (values) => {
         try {
-          setHasWrongUsernamePasswordError(false)
+          setHasWrongUsernamePasswordError(false);
           const {
             data: { token, username },
           } = await axios.post('/api/v1/login', values);
@@ -56,10 +56,9 @@ function AuthForm() {
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);
           navigate(ROUTES.root, { replace: true });
-        } 
-        catch (err) {
+        } catch (err) {
           if (err.response.data.statusCode === 401) {
-            setHasWrongUsernamePasswordError(true)
+            setHasWrongUsernamePasswordError(true);
           }
 
           throw err;
@@ -77,10 +76,10 @@ function AuthForm() {
               autoComplete="username"
               required
               className={cn(
-                "form-control",
+                'form-control',
                 {
-                  "is-invalid": errors.username && touched.username || hasWrongUsernamePasswordError
-                }
+                  'is-invalid': (errors.username && touched.username) || hasWrongUsernamePasswordError
+                },
               )}
             />
             <label htmlFor="username">{t('auth.nameInput')}</label>
@@ -94,17 +93,17 @@ function AuthForm() {
               autoComplete="password"
               required
               className={cn(
-                "form-control",
+                'form-control',
                 {
-                  "is-invalid": errors.password && touched.password || hasWrongUsernamePasswordError
-                }
+                  'is-invalid': (errors.password && touched.password) || hasWrongUsernamePasswordError
+                },
               )}
             />
             <label className="form-label" htmlFor="password">
               {t('auth.passwordInput')}
             </label>
             {errors.password && touched.password ? <div placement="right" className="invalid-tooltip">{errors.password}</div> : null}
-            {hasWrongUsernamePasswordError ? <div placement="right" className="invalid-tooltip">{i18next.t('error.wrongNameOrPassword')}</div> : null}            
+            {hasWrongUsernamePasswordError ? <div placement="right" className="invalid-tooltip">{i18next.t('error.wrongNameOrPassword')}</div> : null}
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
             {t('auth.loginFormButton')}

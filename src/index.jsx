@@ -29,21 +29,19 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-function TestError() {
-  const a = null;
-  return a.hello();
-}
+// function TestError() {
+//   const a = null;
+//   return a.hello();
+// }
 
 const container = document.getElementById('chat');
 render(
   <RollbarProvider config={rollbarConfig}>
     <Provider store={store}>
       <SocketContextProvider>
-        <ErrorBoundary>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ErrorBoundary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </SocketContextProvider>
     </Provider>
   </RollbarProvider>,

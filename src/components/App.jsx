@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -14,22 +14,15 @@ import SignUp from './SignUp/SignUp';
 import NoMatch from './NoMatch/NoMatch';
 // import { useAuth } from 'react-use-auth';
 import { AuthContextProvider, useAuth } from '../hooks/useAuth.jsx';
-import AuthContext from '../contexts/AuthContext';
+// import AuthContext from '../contexts/AuthContext';
 import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
 
-function HomeLayout() {
-  // const { user } = useAuth();
-  // if (user) {
-  //   return <Navigate to={ROUTES.root} />;
-  // }
+const HomeLayout = () => <Outlet />;
 
-  return <Outlet />;
-}
-
-function ProtectedRoute({ children }) {
+const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
   if (!user) {
@@ -37,9 +30,9 @@ function ProtectedRoute({ children }) {
   }
 
   return children;
-}
+};
 
-function App() {
+const App = () => {
   const { t } = useTranslation();
 
   return (
@@ -79,6 +72,6 @@ function App() {
       </div>
     </AuthContextProvider>
   );
-}
+};
 
 export default App;

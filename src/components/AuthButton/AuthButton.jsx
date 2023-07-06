@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+// import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AuthContext from '../../contexts/AuthContext.js';
 import { useAuth } from '../../hooks/useAuth.jsx';
 
-function AuthButton() {
+const AuthButton = () => {
   const { user } = useAuth();
-  const location = useLocation();
+  // const location = useLocation();
   const { logOut } = useContext(AuthContext);
   const { t } = useTranslation();
 

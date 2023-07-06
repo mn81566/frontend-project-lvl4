@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Formik, Form, Field, useFormik,
+  Formik, Form, Field
 } from 'formik';
-import { Form as BootstrapForm, Button, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,16 +14,11 @@ import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
-function AddChannel() {
+const AddChannel = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { channels } = useSelector((state) => state.channelsInfo);
-  const { type } = useSelector((state) => state.modalInfo.type);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    console.log('type   ', type);
-  }, type);
 
   // subscribe new channel
   socket.on('newChannel', (payload) => {
@@ -33,7 +28,7 @@ function AddChannel() {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   const AddChannelSchema = yup.object().shape({
     // prettier-ignore
@@ -67,19 +62,19 @@ function AddChannel() {
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
 
-        try {
+        // try {
           const addNewChannelDispatchResponse = await dispatch(
             addNewChannel({ socket, channelName }),
           );
           resetForm({ channelName: '' });
-          if (addNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
+          if (addNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
             dispatch(fetchData());
             notify();
           }
           handleClose();
-        } catch (err) {
-          throw err;
-        }
+        // } catch (err) {
+        //   throw err;
+        // }
       }}
     >
       {({ errors, touched, handleSubmit }) => (

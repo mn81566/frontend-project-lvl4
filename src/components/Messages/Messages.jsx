@@ -11,7 +11,7 @@ const scrollToBottom = (elementId) => {
   }
 };
 
-function Messages() {
+const Messages = () => {
   const { t } = useTranslation();
   const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
   const channels = useSelector((state) => state.channelsInfo.channels);

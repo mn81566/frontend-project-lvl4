@@ -8,7 +8,7 @@ import filter from 'leo-profanity';
 import { addNewMessage, fetchData } from '../../app/thunks.jsx';
 import SocketContext from '../../contexts/SocketContext.js';
 
-function MessageForm() {
+const MessageForm = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const { currentChannel } = useSelector((state) => state.channelsInfo);
@@ -34,7 +34,7 @@ function MessageForm() {
             addNewMessage({ socket, textMessage, currentChannel }),
           );
           setIsMessageInputDisable(true);
-          if (addNewMessageDispatchResponse.meta.requestStatus == 'fulfilled') {
+          if (addNewMessageDispatchResponse.meta.requestStatus === 'fulfilled') {
             resetForm({ message: '' });
             dispatch(fetchData());
             setIsMessageInputDisable(false);
@@ -46,7 +46,8 @@ function MessageForm() {
         }
       }}
     >
-      {({ errors, touched }) => (
+      {/* {({ errors, touched }) => ( */}
+      {() => (
         <Form className="py-1 border rounded-2">
           <div className="input-group has-validation">
             <Field

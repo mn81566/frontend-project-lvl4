@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AuthForm from '../AuthForm/AuthForm.jsx';
-import loginImage from '../../assets/images/login.jpg'
+import loginImage from '../../assets/images/login.jpg';
 
-function Login() {
+const Login = () => {
   const { t } = useTranslation();
 
   return (
