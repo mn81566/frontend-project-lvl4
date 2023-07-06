@@ -4,7 +4,7 @@ import {
   Formik, Form, Field
 } from 'formik';
 import {
-  Form as BootstrapForm, Button, Modal, FormGroup, FormControl,
+  Form as BootstrapForm, Button, Modal
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,8 +28,8 @@ function RemoveChannel() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    inputRef.current.focus();
-  });
+    inputRef.current.select();
+  }, []);
 
   const RenameChannelSchema = yup.object().shape({
     // prettier-ignore
