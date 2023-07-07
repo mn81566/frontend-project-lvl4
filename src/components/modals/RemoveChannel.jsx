@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Formik, Form
+  Formik, Form,
 } from 'formik';
 import {
-  Button, Modal
+  Button, Modal,
 } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -14,13 +14,13 @@ import { closeModal } from '../../slices/modalSlice.js';
 import { removeChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
-function RemoveChannel() {
+const RemoveChannel = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const channelId = useSelector((state) => state.modalInfo.extra.channelId);
   const { t } = useTranslation();
 
-  // subscribe remove channel
+  // eslint-disable-next-line react/destructuring-assignment
   socket.on('removeChannel', () => {
     dispatch(setCurrentChannel(1));
   });
@@ -44,19 +44,19 @@ function RemoveChannel() {
     <Formik
       initialValues={{ id: '' }}
       onSubmit={async () => {
-        try {
-          const removeChannelDispatchResponse = await dispatch(
-            removeChannel({ socket, channelId }),
-          );
-          // resetForm({ channelName: '' });
-          if (removeChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-            dispatch(fetchData());
-            notify();
-          }
-          handleClose();
-        } catch (err) {
-          throw err;
+        // try {
+        const removeChannelDispatchResponse = await dispatch(
+          removeChannel({ socket, channelId }),
+        );
+        // resetForm({ channelName: '' });
+        if (removeChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
+          dispatch(fetchData());
+          notify();
         }
+        handleClose();
+        // } catch (err) {
+        //   throw err;
+        // }
       }}
     >
       {/* {({ errors, touched, handleSubmit }) => ( */}
@@ -90,6 +90,6 @@ function RemoveChannel() {
       )}
     </Formik>
   );
-}
+};
 
 export default RemoveChannel;

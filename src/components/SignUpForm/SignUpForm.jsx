@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import React, { useContext, useState } from 'react';
 import {
   Formik, Form, Field,
@@ -6,13 +7,14 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import axios from 'axios';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { SignUpSchema } from '../../app/utils/validate.js';
-import { useNavigate } from 'react-router-dom';
 // import { ROUTES } from '../../app/system/routes.js'
 import ROUTES from '../../routes.js';
 
-function SignUpForm() {
+const SignUpForm = () => {
+  // eslint-disable-next-line
   const [authData, setAuthData] = useState({
     username: '',
     password: '',
@@ -104,6 +106,6 @@ function SignUpForm() {
       )}
     </Formik>
   );
-}
+};
 
 export default SignUpForm;

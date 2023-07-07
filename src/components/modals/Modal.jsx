@@ -17,8 +17,8 @@ const Modal = () => {
     return null;
   }
   const Component = modals[type];
-  
+
   return <Component />;
-}
+};
 
 export default Modal;

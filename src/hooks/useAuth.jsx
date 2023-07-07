@@ -4,7 +4,7 @@ import AuthContext from '../contexts/AuthContext.js';
 import useLocalStorage from './useLocalStorage.jsx';
 import ROUTES from '../routes.js';
 
-export function AuthContextProvider({ children }) {
+export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage('user', null);
   const [username, setUsername] = useLocalStorage('username', null);
 
@@ -42,6 +42,6 @@ export function AuthContextProvider({ children }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
   // return <AuthContext.Provider value={{ user, logIn, logOut }}>{children}</AuthContext.Provider>;
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

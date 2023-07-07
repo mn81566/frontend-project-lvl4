@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Formik, Form, Field
+  Formik, Form, Field,
 } from 'formik';
 import {
-  Form as BootstrapForm, Button, Modal
+  Button, Modal,
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +15,7 @@ import { renameChannel, fetchData } from '../../app/thunks.jsx';
 // import { AddChannelSchema } from '../../app/utils/validate.js';
 import 'react-toastify/dist/ReactToastify.css';
 
-function RemoveChannel() {
+const RemoveChannel = () => {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   const inputRef = useRef();
@@ -67,7 +67,7 @@ function RemoveChannel() {
           renameChannel({ socket, id: channelId, name: channelName }),
         );
         resetForm({ channelName: '' });
-        if (renameNewChannelDispatchResponse.meta.requestStatus == 'fulfilled') {
+        if (renameNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
           dispatch(fetchData());
           notify();
         }
@@ -77,7 +77,7 @@ function RemoveChannel() {
         // }
       }}
     >
-      {({ errors, touched, handleSubmit }) => (
+      {({ errors, touched }) => (
       // {(props) => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
@@ -102,7 +102,7 @@ function RemoveChannel() {
                 required
                 className="mb-2 form-control"
               />
-              <label class="visually-hidden" for="channelName">Имя канала</label>
+              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}
@@ -121,6 +121,6 @@ function RemoveChannel() {
       )}
     </Formik>
   );
-}
+};
 
 export default RemoveChannel;

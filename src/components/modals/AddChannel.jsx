@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Formik, Form, Field
+  Formik, Form, Field,
 } from 'formik';
 import { Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
@@ -20,7 +20,7 @@ const AddChannel = () => {
   const { channels } = useSelector((state) => state.channelsInfo);
   const { t } = useTranslation();
 
-  // subscribe new channel
+  // eslint-disable-next-line react/destructuring-assignment
   socket.on('newChannel', (payload) => {
     dispatch(setCurrentChannel(payload.id));
   });
@@ -63,15 +63,15 @@ const AddChannel = () => {
         const { channelName } = values;
 
         // try {
-          const addNewChannelDispatchResponse = await dispatch(
-            addNewChannel({ socket, channelName }),
-          );
-          resetForm({ channelName: '' });
-          if (addNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-            dispatch(fetchData());
-            notify();
-          }
-          handleClose();
+        const addNewChannelDispatchResponse = await dispatch(
+          addNewChannel({ socket, channelName }),
+        );
+        resetForm({ channelName: '' });
+        if (addNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
+          dispatch(fetchData());
+          notify();
+        }
+        handleClose();
         // } catch (err) {
         //   throw err;
         // }
@@ -128,6 +128,6 @@ const AddChannel = () => {
 
     </Formik>
   );
-}
+};
 
 export default AddChannel;
