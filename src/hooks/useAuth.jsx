@@ -13,12 +13,13 @@ export const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const logIn = async ({ token, name }) => {
+  // eslint-disable-next-line no-shadow
+  const logIn = async ({ token, username }) => {
     // setLoggedIn(true);
     // localStorage.setItem('userId', token);
 
     setUser(token);
-    setUsername(name);
+    setUsername(username);
     // navigate(ROUTES.root, { replace: true });
   };
 
