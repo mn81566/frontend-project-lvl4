@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useRef, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -101,6 +102,7 @@ const RemoveChannel = () => {
                 innerRef={inputRef}
                 required
                 className="mb-2 form-control"
+                // label="Имя канала"
               />
               <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (

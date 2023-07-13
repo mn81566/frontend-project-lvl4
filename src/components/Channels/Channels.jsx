@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Button } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -82,8 +83,9 @@ const Channels = () => {
           // </li>
           <li key={channel.id} className="nav-item w-100">
             <Dropdown as={ButtonGroup} className="d-flex dropdown btn-group">
-              <button
+              <Button
                 type="button"
+                // eslint-disable-next-line react/no-unknown-property
                 variant="info"
                 // className="w-100 rounded-0 text-start btn"
                 className={cn('w-100', 'rounded-0', 'text-start', 'btn', {
@@ -94,7 +96,7 @@ const Channels = () => {
                 {t('channels.tag')}
                 {' '}
                 {channel.name}
-              </button>
+              </Button>
               {channel.removable && (
                 <>
                   <Dropdown.Toggle

@@ -102,8 +102,9 @@ const AddChannel = () => {
                   'form-control': true,
                   'is-invalid': errors.channelName,
                 })}
+                label="Имя канала"
               />
-              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
+              {/* <label className="visually-hidden" htmlFor="channelName">Имя канала</label> */}
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}

@@ -36,7 +36,7 @@ const SignUpForm = () => {
             username: values.username,
             password: values.password,
           });
-          logIn({ token, username });
+          logIn({ token, name: username });
           setIsUserExists(false);
           // const { from } = { from: { pathname: '/' } };
           // navigate(from);

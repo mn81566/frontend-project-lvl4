@@ -13,12 +13,12 @@ export const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const logIn = async ({ token, username }) => {
+  const logIn = async ({ token, name }) => {
     // setLoggedIn(true);
     // localStorage.setItem('userId', token);
 
     setUser(token);
-    setUsername(username);
+    setUsername(name);
     // navigate(ROUTES.root, { replace: true });
   };
 
@@ -37,7 +37,7 @@ export const AuthContextProvider = ({ children }) => {
       logIn,
       logOut,
     }),
-    [user],
+    [user, username, logIn, logOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
