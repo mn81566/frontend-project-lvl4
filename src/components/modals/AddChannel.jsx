@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -101,9 +102,8 @@ const AddChannel = () => {
                   'form-control': true,
                   'is-invalid': errors.channelName,
                 })}
-                label="Имя канала"
               />
-              {/* <label className="visually-hidden" htmlFor="channelName">Имя канала</label> */}
+              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}
