@@ -15,6 +15,7 @@ import { closeModal } from '../../slices/modalSlice.js';
 import { renameChannel, fetchData } from '../../app/thunks.jsx';
 // import { AddChannelSchema } from '../../app/utils/validate.js';
 import 'react-toastify/dist/ReactToastify.css';
+import i18next from '../../app/locales';
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
@@ -36,9 +37,9 @@ const RemoveChannel = () => {
     // prettier-ignore
     channelName: yup.string()
       .required()
-      .min(3, 'От 3 до 20 символов!')
-      .max(20, 'От 3 до 20 символов!')
-      .notOneOf([channels.map((channel) => channel.name)], 'Должно быть уникальным'),
+      .min(3, i18next.t('error.wrongLength'))
+      .max(20, i18next.t('error.wrongLength'))
+      .notOneOf([channels.map((channel) => channel.name)], i18next.t('error.mustBeUnique')),
   });
 
   const handleClose = () => dispatch(closeModal());
@@ -60,6 +61,7 @@ const RemoveChannel = () => {
     <Formik
       initialValues={{ channelName: renamedChannelName }}
       validationSchema={RenameChannelSchema}
+      validateOnChange={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
 

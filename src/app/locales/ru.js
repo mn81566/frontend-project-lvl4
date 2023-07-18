@@ -33,6 +33,7 @@ export default {
       necessary: 'Обязательное поле',
       notSamePasswords: 'Пароли должны совпадать',
       wrongNameOrPassword: 'Неверные имя пользователя или пароль',
+      mustBeUnique: 'Должно быть уникальным',
     },
     notifies: {
       addChannel: 'Канал создан',

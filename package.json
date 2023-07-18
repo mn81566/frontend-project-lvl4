@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.1",
-  "description": "",
+  "description": "This is chat.",
   "main": "server/plugin.js",
   "proxy": "http://localhost:5001",
   "type": "module",

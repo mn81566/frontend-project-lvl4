@@ -14,6 +14,8 @@ import { closeModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
+// import i18next from '../../locales/index.js';
+import i18next from '../../app/locales';
 
 const AddChannel = () => {
   const dispatch = useDispatch();
@@ -34,9 +36,9 @@ const AddChannel = () => {
   const AddChannelSchema = yup.object().shape({
     // prettier-ignore
     channelName: yup.string()
-      .min(3, 'От 3 до 20 символов!')
-      .max(20, 'От 3 до 20 символов!')
-      .notOneOf([channels.map((channel) => channel.name)], 'Должно быть уникальным'),
+      .min(3, i18next.t('error.wrongLength'))
+      .max(20, i18next.t('error.wrongLength'))
+      .notOneOf([channels.map((channel) => channel.name)], i18next.t('error.mustBeUnique')),
   });
 
   const handleClose = () => dispatch(closeModal());
