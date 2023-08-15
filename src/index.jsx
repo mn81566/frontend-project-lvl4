@@ -11,7 +11,6 @@ import SocketContext from './contexts/SocketContext.js';
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
-// import '../assets/application.scss';
 import './assets/application.scss';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -28,11 +27,6 @@ const rollbarConfig = {
   accessToken: '044de159526e4936b4a119af3d11909a',
   environment: 'testenv',
 };
-
-// function TestError() {
-//   const a = null;
-//   return a.hello();
-// }
 
 const container = document.getElementById('chat');
 render(

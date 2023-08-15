@@ -8,6 +8,7 @@ import {
   Button, Modal,
 } from 'react-bootstrap';
 import * as yup from 'yup';
+import cn from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
@@ -35,7 +36,7 @@ const RemoveChannel = () => {
 
   const RenameChannelSchema = yup.object().shape({
     // prettier-ignore
-    channelName: yup.string()
+    channelNewName: yup.string()
       .required()
       .min(3, i18next.t('error.wrongLength'))
       .max(20, i18next.t('error.wrongLength'))
@@ -59,17 +60,18 @@ const RemoveChannel = () => {
 
   return (
     <Formik
-      initialValues={{ channelName: renamedChannelName }}
+      initialValues={{ channelNewName: renamedChannelName }}
       validationSchema={RenameChannelSchema}
       validateOnChange={false}
+      validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
-        const { channelName } = values;
+        const { channelNewName } = values;
 
         // try {
         const renameNewChannelDispatchResponse = await dispatch(
-          renameChannel({ socket, id: channelId, name: channelName }),
+          renameChannel({ socket, id: channelId, name: channelNewName }),
         );
-        resetForm({ channelName: '' });
+        resetForm({ channelNewName: '' });
         if (renameNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
           dispatch(fetchData());
           notify();
@@ -97,18 +99,22 @@ const RemoveChannel = () => {
             <Form>
               <Field
                 type="input"
-                id="channelName"
-                name="channelName"
+                id="channelNewName"
+                name="channelNewName"
                 // value={formik.values.channelName}
                 // value={props.values.channelName}
                 innerRef={inputRef}
                 required
-                className="mb-2 form-control"
                 // label="Имя канала"
+                className={cn({
+                  'mb-2': true,
+                  'form-control': true,
+                  'is-invalid': errors.channelNewName,
+                })}
               />
-              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
-              {errors.channelName && touched.channelName ? (
-                <div className="invalid-feedback">{errors.channelName}</div>
+              <label className="visually-hidden" htmlFor="channelNewName">Имя канала</label>
+              {errors.channelNewName && touched.channelNewName ? (
+                <div className="invalid-feedback">{errors.channelNewName}</div>
               ) : null}
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">

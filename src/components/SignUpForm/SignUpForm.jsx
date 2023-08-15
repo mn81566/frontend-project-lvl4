@@ -10,15 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { SignUpSchema } from '../../app/utils/validate.js';
-// import { ROUTES } from '../../app/system/routes.js'
 import ROUTES from '../../routes.js';
 
 const SignUpForm = () => {
-  // eslint-disable-next-line
-  const [authData, setAuthData] = useState({
-    username: '',
-    password: '',
-  });
   const { logIn } = useContext(AuthContext);
   const [isUserExists, setIsUserExists] = useState(false);
   const { t } = useTranslation();
@@ -38,8 +32,6 @@ const SignUpForm = () => {
           });
           logIn({ token, username });
           setIsUserExists(false);
-          // const { from } = { from: { pathname: '/' } };
-          // navigate(from);
           navigate(ROUTES.root, { replace: true });
         } catch (err) {
           if (err.response.status === 409) {

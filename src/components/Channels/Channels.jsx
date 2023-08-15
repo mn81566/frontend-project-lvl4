@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Button } from 'react-bootstrap';
@@ -15,13 +15,11 @@ const Channels = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
-  // const [activeButtonId, setActiveButtonId] = useState();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    dispatch(setCurrentChannel(currentChannel));
-    // dispatch(getMessages());
-  }, [currentChannel, dispatch]);
+  // useEffect(() => {
+  //   dispatch(setCurrentChannel(currentChannel));
+  // }, [currentChannel, dispatch]);
 
   const handleAddChannel = (event) => {
     event.preventDefault();
@@ -29,13 +27,8 @@ const Channels = () => {
   };
 
   const handleChannelClick = (id) => {
-    // setCurrentChannel(id);
     dispatch(setCurrentChannel(id));
     dispatch(fetchData());
-
-    // dispatch(actions.getMessages());
-    // dispatch(getMessages());
-    // getMessages();
   };
 
   const handleRemoveClick = (id) => {
@@ -70,24 +63,12 @@ const Channels = () => {
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channelsData.map((channel) => (
-          // <li key={chanel.id} className="nav-item w-100">
-          //   <button
-          //     type="button"
-          //     key={chanel.id}
-          //     className="w-100 rounded-0 text-start text-truncate btn"
-          //     onClick={handle}
-          //   >
-          //     <span className="me-1">#</span>
-          //     {chanel.name}
-          //   </button>
-          // </li>
           <li key={channel.id} className="nav-item w-100">
             <Dropdown as={ButtonGroup} className="d-flex dropdown btn-group">
               <Button
                 type="button"
                 // eslint-disable-next-line react/no-unknown-property
                 variant="info"
-                // className="w-100 rounded-0 text-start btn"
                 className={cn('w-100', 'rounded-0', 'text-start', 'btn', 'text-truncate', {
                   'btn-secondary': channel.id === currentChannel,
                 })}

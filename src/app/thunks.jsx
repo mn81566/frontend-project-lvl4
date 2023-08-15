@@ -1,12 +1,25 @@
+// import { useState } from 'react';
+// import { io } from 'socket.io-client';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// const [socket] = useState(io());
+
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
-  const fetchedData = await axios.get('/api/v1/data', {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`,
-    },
-  });
+  try {
+    const fetchedData = await axios.get('/api/v1/data', {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`,
+      },
+    });
+  } catch (error) {
+      if (error.name === 'AbortError') {
+          // Запрос был отменен
+      } else {
+          // Обработка других ошибок
+      }
+  }
+
 
   return fetchedData.data;
 });

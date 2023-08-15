@@ -1,4 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, {
+  useContext, useState, useRef, useEffect,
+} from 'react';
+// import React, { useContext, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -16,6 +19,11 @@ const MessageForm = () => {
   filter.add(filter.getDictionary('ru'));
   const [isMessageInputDisable, setIsMessageInputDisable] = useState(false);
 
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [currentChannel]);
+
   const MessageSchema = yup.object().shape({
     // prettier-ignore
     message: yup.string()
@@ -32,6 +40,7 @@ const MessageForm = () => {
         try {
           const addNewMessageDispatchResponse = await dispatch(
             addNewMessage({ socket, textMessage, currentChannel }),
+            // addNewMessage({ textMessage, currentChannel }),
           );
           setIsMessageInputDisable(true);
           if (addNewMessageDispatchResponse.meta.requestStatus === 'fulfilled') {
@@ -40,6 +49,7 @@ const MessageForm = () => {
             setIsMessageInputDisable(false);
             // scrollToBottom();
           }
+          inputRef.current.focus();
         } catch (err) {
           console.log(err);
           throw err;
@@ -54,6 +64,7 @@ const MessageForm = () => {
               type="textarea"
               id="message"
               name="message"
+              innerRef={inputRef}
               aria-label="Новое сообщение"
               placeholder="Введите сообщение..."
               required

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData, addNewMessage } from '../app/thunks.jsx';
+// import { fetchData, addNewMessage } from '../app/thunks.jsx';
+import { fetchData } from '../app/thunks.jsx';
 
 export const getMessages = (state, action) => {
   // if (!state?.messages) {
@@ -34,9 +35,9 @@ const messageSlice = createSlice({
   // initialState: messagesAdapter.getInitialState(),
   initialState,
   reducers: {
-    addMessage: (_state, { payload }) => {
-      addNewMessage(payload.message);
-    },
+    // addMessage: (_state, { payload }) => {
+    //   addNewMessage(payload.message);
+    // },
     // getMessages: (state, { payload }) => {
     //   // const currentChannelId = payload.currentChannelId;
     //   // state.messages = action.payload.messages

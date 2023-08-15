@@ -14,7 +14,6 @@ import { closeModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
-// import i18next from '../../locales/index.js';
 import i18next from '../../app/locales';
 
 const AddChannel = () => {
@@ -61,6 +60,7 @@ const AddChannel = () => {
       initialValues={{ channelName: '' }}
       validationSchema={AddChannelSchema}
       validateOnChange={false}
+      validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
 
@@ -74,9 +74,6 @@ const AddChannel = () => {
           notify();
         }
         handleClose();
-        // } catch (err) {
-        //   throw err;
-        // }
       }}
     >
       {({ errors, touched }) => (
