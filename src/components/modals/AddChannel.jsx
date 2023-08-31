@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
-import { setCurrentChannel } from '../../slices/channelsSlice.js';
+// import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
@@ -22,10 +22,10 @@ const AddChannel = () => {
   const { channels } = useSelector((state) => state.channelsInfo);
   const { t } = useTranslation();
 
-  // eslint-disable-next-line react/destructuring-assignment
-  socket.on('newChannel', (payload) => {
-    dispatch(setCurrentChannel(payload.id));
-  });
+  // // eslint-disable-next-line react/destructuring-assignment
+  // socket.on('newChannel', (payload) => {
+  //   dispatch(setCurrentChannel(payload.id));
+  // });
 
   const inputRef = useRef();
   useEffect(() => {
@@ -108,14 +108,14 @@ const AddChannel = () => {
               ) : null}
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
-                  Отменить
+                  {t('interfaces.cancel')}
                 </Button>
                 <Button
                   type="submit"
                   lassName="btn btn-primary"
                   disabled=""
                 >
-                  Отправить
+                  {t('interfaces.send')}
                 </Button>
               </div>
             </Form>

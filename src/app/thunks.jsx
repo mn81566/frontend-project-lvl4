@@ -5,6 +5,7 @@ import axios from 'axios';
 
 // const [socket] = useState(io());
 
+// export const fetchData = createAsyncThunk('data/fetchData', async () => {
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
   try {
     const fetchedData = await axios.get('/api/v1/data', {
@@ -12,16 +13,16 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`,
       },
     });
+
+    return fetchedData.data;
   } catch (error) {
-      if (error.name === 'AbortError') {
-          // Запрос был отменен
-      } else {
-          // Обработка других ошибок
-      }
+    if (error.name === 'AbortError') {
+      // Запрос был отменен
+    } else {
+      // Обработка других ошибок
+    }
+    return null;
   }
-
-
-  return fetchedData.data;
 });
 
 export const addNewMessage = createAsyncThunk(

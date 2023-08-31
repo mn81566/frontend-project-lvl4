@@ -63,7 +63,7 @@ const RemoveChannel = () => {
       {() => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title>Удалить канал</Modal.Title>
+            <Modal.Title>{t('interfaces.deleteСhannel')}</Modal.Title>
             <Button
               type="button"
               onClick={handleClose}
@@ -74,13 +74,13 @@ const RemoveChannel = () => {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <p className="lead">Уверены?</p>
+              <p className="lead">{t('interfaces.sure')}</p>
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
-                  Отменить
+                  {t('interfaces.cancel')}
                 </Button>
                 <Button type="submit" className="btn btn-danger" disabled="">
-                  Удалить
+                  {t('interfaces.delete')}
                 </Button>
               </div>
             </Form>

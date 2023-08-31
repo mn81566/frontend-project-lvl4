@@ -118,10 +118,10 @@ const RemoveChannel = () => {
               ) : null}
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
-                  Отменить
+                  {t('interfaces.cancel')}
                 </Button>
                 <Button type="submit" className="btn btn-primary" disabled="">
-                  Отправить
+                  {t('interfaces.send')}
                 </Button>
               </div>
             </Form>
