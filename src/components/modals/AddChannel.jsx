@@ -7,12 +7,14 @@ import {
 import { Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
 // import { setCurrentChannel } from '../../slices/channelsSlice.js';
-import { addNewChannel, fetchData } from '../../app/thunks.jsx';
+// import { addNewChannel, fetchData } from '../../app/thunks.jsx';
+import { addNewChannel } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
 
@@ -42,18 +44,18 @@ const AddChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
-  const notify = () => {
-    toast.success(t('notifies.addChannel'), {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-  };
+  // const notify = () => {
+  //   toast.success(t('notifies.addChannel'), {
+  //     position: 'top-right',
+  //     autoClose: 5000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     theme: 'light',
+  //   });
+  // };
 
   return (
     <Formik
@@ -63,16 +65,8 @@ const AddChannel = () => {
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
-
-        // try {
-        const addNewChannelDispatchResponse = await dispatch(
-          addNewChannel({ socket, channelName }),
-        );
+        await dispatch(addNewChannel({ socket, channelName }));
         resetForm({ channelName: '' });
-        if (addNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-          dispatch(fetchData());
-          notify();
-        }
         handleClose();
       }}
     >

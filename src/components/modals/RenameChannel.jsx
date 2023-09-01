@@ -9,12 +9,11 @@ import {
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../../contexts/SocketContext.js';
 import { closeModal } from '../../slices/modalSlice.js';
-import { renameChannel, fetchData } from '../../app/thunks.jsx';
-// import { AddChannelSchema } from '../../app/utils/validate.js';
+import { renameChannel } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
 
@@ -45,19 +44,6 @@ const RemoveChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
-  const notify = () => {
-    toast.success(t('notifies.renameChannel'), {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-  };
-
   return (
     <Formik
       initialValues={{ channelNewName: renamedChannelName }}
@@ -68,14 +54,10 @@ const RemoveChannel = () => {
         const { channelNewName } = values;
 
         // try {
-        const renameNewChannelDispatchResponse = await dispatch(
+        await dispatch(
           renameChannel({ socket, id: channelId, name: channelNewName }),
         );
         resetForm({ channelNewName: '' });
-        if (renameNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-          dispatch(fetchData());
-          notify();
-        }
         handleClose();
         // } catch (err) {
         //   throw err;

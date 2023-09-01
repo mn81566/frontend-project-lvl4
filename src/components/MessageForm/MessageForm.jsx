@@ -1,7 +1,6 @@
 import React, {
   useContext, useState, useRef, useEffect,
 } from 'react';
-// import React, { useContext, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -9,7 +8,7 @@ import * as yup from 'yup';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 
-import { addNewMessage, fetchData } from '../../app/thunks.jsx';
+import { addNewMessage } from '../../app/thunks.jsx';
 import SocketContext from '../../contexts/SocketContext.js';
 
 const MessageForm = () => {
@@ -40,17 +39,12 @@ const MessageForm = () => {
         const textMessage = filter.clean(values.message);
 
         try {
-          const addNewMessageDispatchResponse = await dispatch(
+          await dispatch(
             addNewMessage({ socket, textMessage, currentChannel }),
-            // addNewMessage({ textMessage, currentChannel }),
           );
           setIsMessageInputDisable(true);
-          if (addNewMessageDispatchResponse.meta.requestStatus === 'fulfilled') {
-            resetForm({ message: '' });
-            dispatch(fetchData());
-            setIsMessageInputDisable(false);
-            // scrollToBottom();
-          }
+          resetForm({ message: '' });
+          setIsMessageInputDisable(false);
           inputRef.current.focus();
         } catch (err) {
           console.log(err);
