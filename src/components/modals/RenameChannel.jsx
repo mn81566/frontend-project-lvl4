@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import cn from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import SocketContext from '../../contexts/SocketContext.js';
+import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
 import { renameChannel, fetchData } from '../../app/thunks.jsx';
 // import { AddChannelSchema } from '../../app/utils/validate.js';
@@ -20,7 +20,7 @@ import i18next from '../../app/locales';
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
-  const socket = useContext(SocketContext);
+  const api = useApi();
   const inputRef = useRef();
   const { channelId } = useSelector((state) => state.modalInfo.extra);
   const renamedChannelName = useSelector(
@@ -68,9 +68,7 @@ const RemoveChannel = () => {
         const { channelNewName } = values;
 
         // try {
-        const renameNewChannelDispatchResponse = await dispatch(
-          renameChannel({ socket, id: channelId, name: channelNewName }),
-        );
+        const renameNewChannelDispatchResponse = await api.renameChannel({ id: channelId, name: channelNewName });
         resetForm({ channelNewName: '' });
         if (renameNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
           dispatch(fetchData());

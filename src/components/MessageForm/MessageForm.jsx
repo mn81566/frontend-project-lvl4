@@ -7,13 +7,13 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
-
+import useApi from '../../hooks/useApi.jsx';
 import { addNewMessage, fetchData } from '../../app/thunks.jsx';
-import SocketContext from '../../contexts/SocketContext.js';
+
 
 const MessageForm = () => {
   const dispatch = useDispatch();
-  const socket = useContext(SocketContext);
+  const api = useApi();
   const { currentChannel } = useSelector((state) => state.channelsInfo);
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
@@ -38,10 +38,7 @@ const MessageForm = () => {
         const textMessage = filter.clean(values.message);
 
         try {
-          const addNewMessageDispatchResponse = await dispatch(
-            addNewMessage({ socket, textMessage, currentChannel }),
-            // addNewMessage({ textMessage, currentChannel }),
-          );
+          const addNewMessageDispatchResponse = await api.addNewMessage(textMessage, currentChannel);
           setIsMessageInputDisable(true);
           if (addNewMessageDispatchResponse.meta.requestStatus === 'fulfilled') {
             resetForm({ message: '' });

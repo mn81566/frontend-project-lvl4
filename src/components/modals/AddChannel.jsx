@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import cn from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import SocketContext from '../../contexts/SocketContext.js';
+import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { addNewChannel, fetchData } from '../../app/thunks.jsx';
@@ -18,14 +18,9 @@ import i18next from '../../app/locales';
 
 const AddChannel = () => {
   const dispatch = useDispatch();
-  const socket = useContext(SocketContext);
+  const api = useApi();
   const { channels } = useSelector((state) => state.channelsInfo);
   const { t } = useTranslation();
-
-  // eslint-disable-next-line react/destructuring-assignment
-  socket.on('newChannel', (payload) => {
-    dispatch(setCurrentChannel(payload.id));
-  });
 
   const inputRef = useRef();
   useEffect(() => {
@@ -65,9 +60,7 @@ const AddChannel = () => {
         const { channelName } = values;
 
         // try {
-        const addNewChannelDispatchResponse = await dispatch(
-          addNewChannel({ socket, channelName }),
-        );
+        const addNewChannelDispatchResponse = await api.addNewChannel(channelName);
         resetForm({ channelName: '' });
         if (addNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
           dispatch(fetchData());

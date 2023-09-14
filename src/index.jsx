@@ -7,6 +7,9 @@ import { io } from 'socket.io-client';
 import App from './components/App.jsx';
 import store from './slices/index.js';
 import SocketContext from './contexts/SocketContext.js';
+import { ApiContext } from './contexts/ApiContext.js';
+// import api from './api/api.js';
+
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
@@ -28,15 +31,28 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
+// const [socket] = useState(io());
+const socket = io();
+const api = {
+  addNewMessage: (textMessage, currentChannel) => socket.emit(
+      'newMessage',
+      { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
+  ),
+  addNewChannel: ( socket, channelName ) => socket.emit('newChannel', { name: channelName }),
+  renameChannel: ( socket, id, name ) => socket.emit('renameChannel', { id, name }),
+  removeChannel: ( socket, channelId ) => socket.emit('removeChannel', { id: channelId }),
+}
+
+
 const container = document.getElementById('chat');
 render(
   <RollbarProvider config={rollbarConfig}>
     <Provider store={store}>
-      <SocketContextProvider>
+      <ApiContext.Provider value={api}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </SocketContextProvider>
+      </ApiContext.Provider>
     </Provider>
   </RollbarProvider>,
   container,

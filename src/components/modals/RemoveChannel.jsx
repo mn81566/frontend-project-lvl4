@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import SocketContext from '../../contexts/SocketContext.js';
+import useApi from '../../hooks/useApi.jsx';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import { removeChannel, fetchData } from '../../app/thunks.jsx';
@@ -16,14 +16,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
-  const socket = useContext(SocketContext);
+  const api = useApi();
   const channelId = useSelector((state) => state.modalInfo.extra.channelId);
   const { t } = useTranslation();
-
-  // eslint-disable-next-line react/destructuring-assignment
-  socket.on('removeChannel', () => {
-    dispatch(setCurrentChannel(1));
-  });
 
   const handleClose = () => dispatch(closeModal());
 
@@ -45,9 +40,7 @@ const RemoveChannel = () => {
       initialValues={{ id: '' }}
       onSubmit={async () => {
         // try {
-        const removeChannelDispatchResponse = await dispatch(
-          removeChannel({ socket, channelId }),
-        );
+        const removeChannelDispatchResponse = await api.removeChannel({ channelId });
         // resetForm({ channelName: '' });
         if (removeChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
           dispatch(fetchData());
