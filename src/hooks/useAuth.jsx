@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext.js';
-import useLocalStorage from './useLocalStorage.jsx';
+import useLocalStorage from './useLocalStorage.js';
 import ROUTES from '../routes.js';
 
 export const AuthContextProvider = ({ children }) => {

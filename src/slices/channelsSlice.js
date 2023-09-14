@@ -13,7 +13,7 @@ const getChannels = (state, action) => {
 // const channelsAdapter = createEntityAdapter();
 const initialState = {
   channels: [],
-  currentChannel: null,
+  currentChannel: 1,
 };
 
 // const dispatch = useDispatch();

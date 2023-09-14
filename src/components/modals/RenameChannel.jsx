@@ -9,12 +9,11 @@ import {
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
-import { renameChannel, fetchData } from '../../app/thunks.jsx';
-// import { AddChannelSchema } from '../../app/utils/validate.js';
+import { renameChannel } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
 
@@ -45,19 +44,6 @@ const RemoveChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
-  const notify = () => {
-    toast.success(t('notifies.renameChannel'), {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-  };
-
   return (
     <Formik
       initialValues={{ channelNewName: renamedChannelName }}
@@ -68,12 +54,8 @@ const RemoveChannel = () => {
         const { channelNewName } = values;
 
         // try {
-        const renameNewChannelDispatchResponse = await api.renameChannel({ id: channelId, name: channelNewName });
+        await api.renameChannel({ id: channelId, name: channelNewName });
         resetForm({ channelNewName: '' });
-        if (renameNewChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-          dispatch(fetchData());
-          notify();
-        }
         handleClose();
         // } catch (err) {
         //   throw err;
@@ -116,10 +98,10 @@ const RemoveChannel = () => {
               ) : null}
               <div className="d-flex justify-content-end">
                 <Button onClick={handleClose} className="me-2 btn btn-secondary" value="submit">
-                  Отменить
+                  {t('interfaces.cancel')}
                 </Button>
                 <Button type="submit" className="btn btn-primary" disabled="">
-                  Отправить
+                  {t('interfaces.send')}
                 </Button>
               </div>
             </Form>

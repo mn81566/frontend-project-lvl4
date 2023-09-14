@@ -23,6 +23,8 @@ export default {
     channels: {
       title: 'Каналы',
       tag: '#',
+      manageСhannel: 'Управление каналом',
+      deleteСhannel: 'Удалить канал',
     },
     messages: {
       messages: 'сообщений',
@@ -39,6 +41,15 @@ export default {
       addChannel: 'Канал создан',
       removeChannel: 'Канал удалён',
       renameChannel: 'Канал переименован',
+    },
+    interfaces: {
+      add: '+',
+      send: 'Отправить',
+      sendMessage: 'Отправить',
+      cancel: 'Отменить',
+      sure: 'Уверены?',
+      delete: 'Удалить',
+      rename: 'Переименовать',
     },
   },
 };

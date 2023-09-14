@@ -11,11 +11,11 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
 
     return fetchedData.data;
   } catch (error) {
-      if (error.name === 'AbortError') {
-          // Запрос был отменен
-      } else {
-          // Обработка других ошибок
-      }
+    if (error.name === 'AbortError') {
+      // Запрос был отменен
+    } else {
+      // Обработка других ошибок
+    }
+    return null;
   }
-  return null;
 });
