@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -20,12 +19,6 @@ import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
-// import SocketContext from '../../contexts/SocketContext.js';
-import SocketContext from '../contexts/SocketContext.js';
-// import { setCurrentChannel } from '../slices/channelsSlice.js';
-// import { notifySuccessAddChannel } from '../app/utils/notify.js';
-// import { fetchData } from '../app/thunks.jsx';
-import events from '../app/api/events.js';
 
 const HomeLayout = () => <Outlet />;
 
@@ -41,10 +34,6 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const socket = useContext(SocketContext);
-
-  events(dispatch, socket);
 
   return (
     <AuthContextProvider>

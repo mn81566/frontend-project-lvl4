@@ -7,14 +7,10 @@ import {
 import { Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-// import { ToastContainer, toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
-// import { setCurrentChannel } from '../../slices/channelsSlice.js';
-// import { addNewChannel, fetchData } from '../../app/thunks.jsx';
-import { addNewChannel } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
 
@@ -60,7 +56,7 @@ const AddChannel = () => {
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
-        await dispatch(addNewChannel({ socket, channelName }));
+        api.addNewChannel( channelName );
         resetForm({ channelName: '' });
         handleClose();
       }}
