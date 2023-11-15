@@ -27,10 +27,8 @@ const modalSlice = createSlice({
       state.extra = null;
     },
   },
-  // extraReducers: (builder) => {},
 });
 
 export const { showModal, closeModal } = modalSlice.actions;
-// export const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 
 export default modalSlice.reducer;

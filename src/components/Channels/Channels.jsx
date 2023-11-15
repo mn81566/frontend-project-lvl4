@@ -17,10 +17,6 @@ const Channels = () => {
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   dispatch(setCurrentChannel(currentChannel));
-  // }, [currentChannel, dispatch]);
-
   const handleAddChannel = (event) => {
     event.preventDefault();
     dispatch(showModal({ type: 'addChannel' }));

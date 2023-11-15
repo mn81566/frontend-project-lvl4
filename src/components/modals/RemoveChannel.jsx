@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Formik, Form,
@@ -9,9 +9,7 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
-import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalSlice.js';
-import { removeChannel, fetchData } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RemoveChannel = () => {
@@ -39,21 +37,20 @@ const RemoveChannel = () => {
     <Formik
       initialValues={{ id: '' }}
       onSubmit={async () => {
-        // try {
-        const removeChannelDispatchResponse = await api.removeChannel({ channelId });
-        // resetForm({ channelName: '' });
-        if (removeChannelDispatchResponse.meta.requestStatus === 'fulfilled') {
-          dispatch(fetchData());
-          notify();
+        try {
+            await api.removeChannel({ id: channelId });
+            notify();
+            handleClose();
         }
-        handleClose();
+        catch (e) {
+          console.log('Error: ', e);
+        }
       }}
     >
-      {/* {({ errors, touched, handleSubmit }) => ( */}
       {() => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title>{t('interfaces.deleteСhannel')}</Modal.Title>
+            <Modal.Title>{t('channels.deleteСhannel')}</Modal.Title>
             <Button
               type="button"
               onClick={handleClose}

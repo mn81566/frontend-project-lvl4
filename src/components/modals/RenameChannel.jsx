@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Formik, Form, Field,
@@ -9,11 +9,10 @@ import {
 } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
-import { renameChannel } from '../../app/thunks.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from '../../app/locales';
 
@@ -26,7 +25,6 @@ const RemoveChannel = () => {
     (state) => state.channelsInfo.channels.find((channel) => channel.id === channelId).name,
   );
   const channels = useSelector((state) => state.channelsInfo.channels);
-  // const schema = getSchema(channels);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -44,6 +42,19 @@ const RemoveChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
+  const notify = () => {
+    toast.success(t('notifies.renameChannel'), {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
+
   return (
     <Formik
       initialValues={{ channelNewName: renamedChannelName }}
@@ -53,17 +64,17 @@ const RemoveChannel = () => {
       onSubmit={async (values, { resetForm }) => {
         const { channelNewName } = values;
 
-        // try {
-        await api.renameChannel({ id: channelId, name: channelNewName });
-        resetForm({ channelNewName: '' });
-        handleClose();
-        // } catch (err) {
-        //   throw err;
-        // }
+        try {
+          await api.renameChannel({ id: channelId, name: channelNewName });
+          notify();
+          resetForm({ channelNewName: '' });
+          handleClose();
+        } catch (e) {
+          console.log("Error: ", e);
+        }
       }}
     >
       {({ errors, touched }) => (
-      // {(props) => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
             <Modal.Title>Переименовать канал</Modal.Title>
@@ -81,11 +92,8 @@ const RemoveChannel = () => {
                 type="input"
                 id="channelNewName"
                 name="channelNewName"
-                // value={formik.values.channelName}
-                // value={props.values.channelName}
                 innerRef={inputRef}
                 required
-                // label="Имя канала"
                 className={cn({
                   'mb-2': true,
                   'form-control': true,

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "This is chat.",
   "main": "server/plugin.js",
-  "proxy": "http://localhost:5001",
+  "proxy": "http://127.0.0.1:5001",
   "type": "module",
   "jest": {
     "transform": {}

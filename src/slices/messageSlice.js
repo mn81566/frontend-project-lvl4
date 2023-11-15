@@ -1,22 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { fetchData, addNewMessage } from '../app/thunks.jsx';
 import { fetchData } from '../app/thunks.jsx';
 
 export const getMessages = (state, action) => {
-  // if (!state?.messages) {
-  //   return;
-  // }
-
   // eslint-disable-next-line
   state.messages = [];
-  // action.payload.messages.forEach((message) => {
-  //   state.messages.push(message);
-  // });
-
-  // const currentChannelId = useSelector((state) => state.channelsInfo.currentChannel);
-
-  // const currentChannelId = action.payload?.currentChannelId;
-  // const currentChannelId = state.channelsInfo.currentChannel;
 
   if (action.payload?.messages) {
     // eslint-disable-next-line
@@ -24,41 +11,25 @@ export const getMessages = (state, action) => {
   }
 };
 
-// const messagesAdapter = createEntityAdapter();
-
 const initialState = {
   messages: [],
 };
 
 const messageSlice = createSlice({
   name: 'messagesInfo',
-  // initialState: messagesAdapter.getInitialState(),
   initialState,
   reducers: {
-    // addMessage: (_state, { payload }) => {
-    //   addNewMessage(payload.message);
-    // },
-    // getMessages: (state, { payload }) => {
-    //   // const currentChannelId = payload.currentChannelId;
-    //   // state.messages = action.payload.messages
-    //      //.filter((message) => message.channelId == currentChannelId);
-
-    //   state.messages = state.messages
-    //      //.filter((message) => message.channelId == state.currentChannelId);
-    // },
+    addMessage: (state, { payload }) => {
+      state.messages.push(payload);
+    },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchData.fulfilled, (state, action) => {
-  //     messagesAdapter.setAll(state, action.payload.messages);
-  //   });
-  // },
   extraReducers: (builder) => {
-    builder.addCase(fetchData.fulfilled, getMessages);
-    // builder.addCase(setCurrentChannel, getMessages);
+    builder.addCase(fetchData.fulfilled, (state, action) => {
+      state.messages = action.payload.messages;
+      
+    });
   },
 });
 
-export const { actions } = messageSlice;
-// export const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages);
-
+export const { addMessage  } = messageSlice.actions;
 export default messageSlice.reducer;

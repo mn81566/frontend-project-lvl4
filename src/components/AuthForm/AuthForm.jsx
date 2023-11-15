@@ -2,20 +2,16 @@
 import React, { useContext, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Form as BootstrapForm } from 'react-bootstrap';
-// import routes from "../../../server/routes.js";
 import axios from 'axios';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext.js';
 import { AuthSchema } from '../../app/utils/validate.js';
-// import { ROUTES } from '../../app/system/routes.js';
 import ROUTES from '../../routes.js';
 import i18next from '../../app/locales/index.js';
 
 const AuthForm = () => {
-  // const [isFailedValidation, setIsFailedValidation] = useState(true);
-
   // eslint-disable-next-line
   const [authData, setAuthData] = useState({
     username: '',
@@ -25,21 +21,6 @@ const AuthForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [hasWrongUsernamePasswordError, setHasWrongUsernamePasswordError] = useState(false);
-
-  // const AuthSchema = yup.object().shape({
-  //   // prettier-ignore
-  //   username: yup.string()
-  //     .required()
-  //     .min(2, "Too Short!")
-  //     .max(50, "Too Long!"),
-  //   // prettier-ignore
-  //   password: yup.string()
-  //     .required()
-  //     .min(2, "Too Short!")
-  //     .max(50, "Too Long!"),
-  // });
-
-  // const TestSchema = getSchema([]);
 
   return (
     <Formik
@@ -51,11 +32,7 @@ const AuthForm = () => {
           const {
             data: { token, username },
           } = await axios.post('/api/v1/login', values);
-          // const res = await axios.post('/api/v1/login', values);
-          // localStorage.setItem('userId', JSON.stringify(token));
           logIn({ token, username });
-          // const { from } = { from: { pathname: '/' } };
-          // navigate(from);
           navigate(ROUTES.root, { replace: true });
         } catch (err) {
           if (err.response.data.statusCode === 401) {

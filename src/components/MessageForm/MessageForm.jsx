@@ -1,15 +1,15 @@
 import React, {
-  useContext, useState, useRef, useEffect,
+  useState, useRef, useEffect,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
-import useApi from '../../hooks/useApi.jsx';import { useTranslation } from 'react-i18next';
+import useApi from '../../hooks/useApi.jsx';
+import { useTranslation } from 'react-i18next';
 
 const MessageForm = () => {
-  const dispatch = useDispatch();
   const api = useApi();
   const { currentChannel } = useSelector((state) => state.channelsInfo);
   filter.add(filter.getDictionary('en'));
@@ -47,7 +47,6 @@ const MessageForm = () => {
         }
       }}
     >
-      {/* {({ errors, touched }) => ( */}
       {() => (
         <Form className="py-1 border rounded-2">
           <div className="input-group has-validation">
@@ -78,7 +77,6 @@ const MessageForm = () => {
               <span className="visually-hidden">{t('interfaces.sendMessage')}</span>
             </Button>
             <br />
-            {/* {errors.message && touched.message ? <span>{errors.message}</span> : null} */}
           </div>
         </Form>
       )}

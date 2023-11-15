@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  // BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -12,13 +11,15 @@ import Main from './Main/Main.jsx';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
 import NoMatch from './NoMatch/NoMatch';
-// import { useAuth } from 'react-use-auth';
 import { AuthContextProvider, useAuth } from '../hooks/useAuth.jsx';
-// import AuthContext from '../contexts/AuthContext';
 import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
+import { useDispatch } from 'react-redux';
+import { fetchData } from '../app/thunks.jsx';
+import useApi from '../hooks/useApi.jsx';
+import { useEffect } from 'react';
 
 const HomeLayout = () => <Outlet />;
 
@@ -34,18 +35,23 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   const { t } = useTranslation();
+  const api = useApi();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch])
+
+  api.onAddNewMessage(dispatch);
+  api.onAddNewChannel(dispatch);
+  api.onRenameChannel(dispatch);
+  api.onRemoveChannel(dispatch);
 
   return (
     <AuthContextProvider>
       <div className="d-flex flex-column h-100">
         <nav className={cn('shadow-sm', 'navbar', 'navbar-expand-lg', 'navbar-light', 'bg-white')}>
           <div className="container">
-            {/* <li>
-                  <Link to="/">Main</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li> */}
             <a className="navbar-brand" href="/">
               {t('header.title')}
             </a>

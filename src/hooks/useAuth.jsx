@@ -8,25 +8,15 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage('user', null);
   const [username, setUsername] = useLocalStorage('username', null);
 
-  // const currentUser = JSON.parse(localStorage.getItem('user'));
-  // const [user, setUser] = useState(currentUser);
-
   const navigate = useNavigate();
 
   // eslint-disable-next-line no-shadow
   const logIn = async ({ token, username }) => {
-    // setLoggedIn(true);
-    // localStorage.setItem('userId', token);
-
     setUser(token);
     setUsername(username);
-    // navigate(ROUTES.root, { replace: true });
   };
 
   const logOut = () => {
-    // setLoggedIn(false);
-    // localStorage.removeItem('userId');
-
     setUser(null);
     navigate(ROUTES.login, { replace: true });
   };
@@ -42,7 +32,6 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-  // return <AuthContext.Provider value={{ user, logIn, logOut }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

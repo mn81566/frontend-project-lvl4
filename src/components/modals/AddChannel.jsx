@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Formik, Form, Field,
@@ -7,7 +7,7 @@ import {
 import { Button, Modal } from 'react-bootstrap';
 import * as yup from 'yup';
 import cn from 'classnames';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
@@ -35,18 +35,18 @@ const AddChannel = () => {
 
   const handleClose = () => dispatch(closeModal());
 
-  // const notify = () => {
-  //   toast.success(t('notifies.addChannel'), {
-  //     position: 'top-right',
-  //     autoClose: 5000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: 'light',
-  //   });
-  // };
+  const notify = () => {
+    toast.success(t('notifies.addChannel'), {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
 
   return (
     <Formik
@@ -55,10 +55,15 @@ const AddChannel = () => {
       validateOnChange={false}
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
-        const { channelName } = values;
-        api.addNewChannel( channelName );
-        resetForm({ channelName: '' });
-        handleClose();
+        try {
+          const { channelName } = values;
+          api.addNewChannel( channelName );
+          resetForm({ channelName: '' });
+          notify();
+          handleClose();
+        } catch (e) {
+          console.log("Error: ", e);
+        }
       }}
     >
       {({ errors, touched }) => (

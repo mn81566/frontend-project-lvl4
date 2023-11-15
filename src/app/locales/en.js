@@ -1,4 +1,4 @@
-export default {
+const en = {
   translation: {
     header: {
       title: 'Hexlet Chat',
@@ -53,3 +53,5 @@ export default {
     },
   },
 };
+
+export { en };
