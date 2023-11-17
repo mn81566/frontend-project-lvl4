@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import i18next from '../locales/index.js';
 
-
 export const AuthSchema = yup.object().shape({
   // prettier-ignore
   username: yup.string()

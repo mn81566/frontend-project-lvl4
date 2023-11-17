@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchData = createAsyncThunk('data/fetchData', async () => {
   try {
-  const fetchedData = await axios.get('/api/v1/data', {
+    const fetchedData = await axios.get('/api/v1/data', {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`,
       },

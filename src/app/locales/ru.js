@@ -1,4 +1,4 @@
-const ru = {
+export default {
   translation: {
     header: {
       title: 'Hexlet Chat',
@@ -23,11 +23,15 @@ const ru = {
     channels: {
       title: 'Каналы',
       tag: '#',
+      addСhannel: 'Добавить канал',
       manageСhannel: 'Управление каналом',
+      renameСhannel: 'Переименовать канал',
       deleteСhannel: 'Удалить канал',
     },
     messages: {
-      messages: 'сообщений',
+      message_one: '{{count}} сообщение',
+      message_few: '{{count}} сообщения',
+      message_many: '{{count}} сообщений',
     },
     error: {
       wrongLength: 'От 3 до 20 символов',
@@ -53,5 +57,3 @@ const ru = {
     },
   },
 };
-
-export { ru };

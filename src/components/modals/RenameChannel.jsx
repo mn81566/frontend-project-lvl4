@@ -70,14 +70,14 @@ const RemoveChannel = () => {
           resetForm({ channelNewName: '' });
           handleClose();
         } catch (e) {
-          console.log("Error: ", e);
+          console.log('Error: ', e);
         }
       }}
     >
       {({ errors, touched }) => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title>Переименовать канал</Modal.Title>
+            <Modal.Title>{t('channels.renameСhannel')}</Modal.Title>
             <Button
               type="button"
               onClick={handleClose}

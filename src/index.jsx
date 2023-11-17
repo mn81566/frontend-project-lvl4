@@ -8,8 +8,9 @@ import App from './components/App.jsx';
 import store from './slices/index.js';
 import { ApiContext } from './contexts/ApiContext.js';
 import { addMessage } from './slices/messageSlice.js';
-import { addChannel, setCurrentChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
-
+import {
+  addChannel, setCurrentChannel, removeChannel, renameChannel,
+} from './slices/channelsSlice.js';
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
@@ -28,12 +29,12 @@ const rollbarConfig = {
 const socket = io();
 const api = {
   addNewMessage: (textMessage, currentChannel) => socket.emit(
-      'newMessage',
-      { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
+    'newMessage',
+    { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
   ),
-  addNewChannel: ( channelName ) => socket.emit('newChannel', { name: channelName }),
-  renameChannel: ( {id, name} ) => socket.emit('renameChannel', { id, name }),
-  removeChannel: ({id}) => socket.emit('removeChannel', { id }),
+  addNewChannel: (channelName) => socket.emit('newChannel', { name: channelName }),
+  renameChannel: ({ id, name }) => socket.emit('renameChannel', { id, name }),
+  removeChannel: ({ id }) => socket.emit('removeChannel', { id }),
   onAddNewMessage: (dispatch) => socket.on('newMessage', (payload) => {
     dispatch(addMessage(payload)); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
   }),
@@ -43,11 +44,12 @@ const api = {
   }),
   onRemoveChannel: (dispatch) => socket.on('removeChannel', (payload) => {
     dispatch(removeChannel(payload));
-  }), 
+    dispatch(setCurrentChannel(1));
+  }),
   onRenameChannel: (dispatch) => socket.on('renameChannel', (payload) => {
     dispatch(renameChannel(payload)); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
   }),
-}
+};
 
 const container = document.getElementById('chat');
 render(

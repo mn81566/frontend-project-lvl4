@@ -23,11 +23,11 @@ const channelsSlice = createSlice({
       state.channels.push(payload);
     },
     removeChannel: (state, { payload }) => {
-      state.channels = state.channels.filter(channel => channel['id'] !== payload['id']);
+      state.channels = state.channels.filter((channel) => channel.id !== payload.id);
     },
     renameChannel: (state, { payload }) => {
-      state.channels.find(channel => channel['id'] === payload['id']).name = payload.name;
-    },    
+      state.channels.find((channel) => channel.id === payload.id).name = payload.name;
+    },
     setCurrentChannel: (state, { payload = 1 }) => {
       if (!payload) {
         // eslint-disable-next-line
@@ -42,6 +42,8 @@ const channelsSlice = createSlice({
   },
 });
 
-export const { addChannel, setCurrentChannel, removeChannel, renameChannel } = channelsSlice.actions;
+export const {
+  addChannel, setCurrentChannel, removeChannel, renameChannel,
+} = channelsSlice.actions;
 
 export default channelsSlice.reducer;

@@ -38,11 +38,10 @@ const RemoveChannel = () => {
       initialValues={{ id: '' }}
       onSubmit={async () => {
         try {
-            await api.removeChannel({ id: channelId });
-            notify();
-            handleClose();
-        }
-        catch (e) {
+          await api.removeChannel({ id: channelId });
+          notify();
+          handleClose();
+        } catch (e) {
           console.log('Error: ', e);
         }
       }}

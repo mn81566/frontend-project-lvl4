@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Routes,
   Route,
@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import Main from './Main/Main.jsx';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
@@ -16,10 +17,8 @@ import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
-import { useDispatch } from 'react-redux';
 import { fetchData } from '../app/thunks.jsx';
 import useApi from '../hooks/useApi.jsx';
-import { useEffect } from 'react';
 
 const HomeLayout = () => <Outlet />;
 
@@ -38,9 +37,9 @@ const App = () => {
   const api = useApi();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(fetchData());
+  // }, [dispatch]);
 
   api.onAddNewMessage(dispatch);
   api.onAddNewChannel(dispatch);

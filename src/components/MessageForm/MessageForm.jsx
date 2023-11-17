@@ -6,8 +6,8 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
-import useApi from '../../hooks/useApi.jsx';
 import { useTranslation } from 'react-i18next';
+import useApi from '../../hooks/useApi.jsx';
 
 const MessageForm = () => {
   const api = useApi();

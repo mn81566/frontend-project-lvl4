@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.jsx';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
-import i18next from '../../app/locales';
 
 const AddChannel = () => {
   const dispatch = useDispatch();
@@ -28,9 +27,9 @@ const AddChannel = () => {
   const AddChannelSchema = yup.object().shape({
     // prettier-ignore
     channelName: yup.string()
-      .min(3, i18next.t('error.wrongLength'))
-      .max(20, i18next.t('error.wrongLength'))
-      .notOneOf([channels.map((channel) => channel.name)], i18next.t('error.mustBeUnique')),
+      .min(3, t('error.wrongLength'))
+      .max(20, t('error.wrongLength'))
+      .notOneOf([channels.map((channel) => channel.name)], t('error.mustBeUnique')),
   });
 
   const handleClose = () => dispatch(closeModal());
@@ -57,19 +56,19 @@ const AddChannel = () => {
       onSubmit={async (values, { resetForm }) => {
         try {
           const { channelName } = values;
-          api.addNewChannel( channelName );
+          api.addNewChannel(channelName);
           resetForm({ channelName: '' });
           notify();
           handleClose();
         } catch (e) {
-          console.log("Error: ", e);
+          console.log('Error: ', e);
         }
       }}
     >
       {({ errors, touched }) => (
         <Modal show onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>{t('channels.addСhannel')}</Modal.Title>
             <Button
               type="button"
               onClick={handleClose}

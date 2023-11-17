@@ -1,7 +1,8 @@
 // const api = {
 //     addNewMessage: (textMessage, currentChannel) => socket.emit(
 //         'newMessage',
-//         { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
+//         { body: textMessage, channelId: currentChannel, 
+// username: JSON.parse(localStorage.getItem('username')) },
 //     ),
 //     addNewChannel: ( socket, channelName ) => socket.emit('newChannel', { name: channelName }),
 //     renameChannel: ( socket, id, name ) => socket.emit('renameChannel', { id, name }),

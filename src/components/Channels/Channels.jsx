@@ -36,8 +36,8 @@ const Channels = () => {
   };
 
   return (
-    <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
-      <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
+    <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+      <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <span>{t('channels.title')}</span>
         <button
           type="button"
@@ -57,7 +57,7 @@ const Channels = () => {
           <span className="visually-hidden">{t('interfaces.add')}</span>
         </button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2">
+      <ul className="nav flex-column nav-pills nav-fill px-2 mb-23 overflow-auto h-100 d-block">
         {channelsData.map((channel) => (
           <li key={channel.id} className="nav-item w-100">
             <Dropdown as={ButtonGroup} className="d-flex dropdown btn-group">
