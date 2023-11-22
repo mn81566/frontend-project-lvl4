@@ -37,9 +37,9 @@ const App = () => {
   const api = useApi();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchData());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
   api.onAddNewMessage(dispatch);
   api.onAddNewChannel(dispatch);
@@ -57,7 +57,6 @@ const App = () => {
             <AuthButton />
           </div>
         </nav>
-
         <Routes>
           <Route element={<HomeLayout />}>
             <Route path={ROUTES.login} element={<Login />} />

@@ -101,7 +101,7 @@ const AddChannel = () => {
                 </Button>
                 <Button
                   type="submit"
-                  lassName="btn btn-primary"
+                  className="btn btn-primary"
                   disabled=""
                 >
                   {t('interfaces.send')}

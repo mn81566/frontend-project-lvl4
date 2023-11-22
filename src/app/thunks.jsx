@@ -13,8 +13,10 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
   } catch (error) {
     if (error.name === 'AbortError') {
       // Запрос был отменен
+      console.log("🚀 ~ file: thunks.jsx:15 ~ fetchData ~ error.name:", error.name)
     } else {
       // Обработка других ошибок
+      console.log("fetch data error");
     }
     return null;
   }
