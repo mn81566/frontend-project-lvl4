@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   useDispatch, useSelector,
 } from 'react-redux';
-import { fetchData } from '../../app/thunks.jsx';
+import fetchData from '../../app/thunks.jsx';
 import Channels from '../Channels/Channels.jsx';
 import Messages from '../Messages/Messages.jsx';
 import './Main.scss';

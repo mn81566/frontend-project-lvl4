@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { showModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchData } from '../../app/thunks.jsx';
+import fetchData from '../../app/thunks.jsx';
 
 const Channels = () => {
   const dispatch = useDispatch();

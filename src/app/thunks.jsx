@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchData = createAsyncThunk('data/fetchData', async () => {
+const fetchData = createAsyncThunk('data/fetchData', async () => {
   try {
     const fetchedData = await axios.get('/api/v1/data', {
       headers: {
@@ -13,11 +13,13 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
   } catch (error) {
     if (error.name === 'AbortError') {
       // Запрос был отменен
-      console.log("🚀 ~ file: thunks.jsx:15 ~ fetchData ~ error.name:", error.name)
+      console.log('🚀 ~ file: thunks.jsx:15 ~ fetchData ~ error.name:', error.name);
     } else {
       // Обработка других ошибок
-      console.log("fetch data error");
+      console.log('fetch data error');
     }
     return null;
   }
 });
+
+export default fetchData;

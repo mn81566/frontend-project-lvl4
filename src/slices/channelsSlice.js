@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData } from '../app/thunks.jsx';
+import fetchData from '../app/thunks.jsx';
 
 const getChannels = (state, action) => {
   // eslint-disable-next-line
