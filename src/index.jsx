@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Provider as RollbarProvider } from '@rollbar/react'; // Provider imports 'rollbar'
 import App from './components/App.jsx';
 import store from './slices/index.js';
-import { ApiContext } from './contexts/ApiContext.js';
+import ApiContext from './contexts/ApiContext.js';
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
