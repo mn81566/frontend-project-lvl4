@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Provider as RollbarProvider } from '@rollbar/react'; // Provider imports 'rollbar'
@@ -23,8 +23,9 @@ const rollbarConfig = {
 };
 
 const container = document.getElementById('chat');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
-render(
+root.render(
   <RollbarProvider config={rollbarConfig}>
     <Provider store={store}>
       <ApiContext.Provider value={api}>

@@ -11,6 +11,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const controller = useRef(new AbortController());
+  const { current } = controller;
 
   useEffect(() => {
     const { signal } = controller.current;
@@ -18,9 +19,9 @@ const Main = () => {
     dispatch(fetchData(signal));
 
     return () => {
-      controller.current.abort();
+      current.abort();
     };
-  }, [dispatch]);
+  }, [dispatch, current]);
 
   return (
     channelsData && (

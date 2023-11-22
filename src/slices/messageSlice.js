@@ -25,6 +25,7 @@ const messageSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
+      // eslint-disable-next-line
       state.messages = action.payload.messages;
     });
   },
