@@ -23,9 +23,11 @@ const channelsSlice = createSlice({
       state.channels.push(payload);
     },
     removeChannel: (state, { payload }) => {
+      // eslint-disable-next-line
       state.channels = state.channels.filter((channel) => channel.id !== payload.id);
     },
     renameChannel: (state, { payload }) => {
+      // eslint-disable-next-line
       state.channels.find((channel) => channel.id === payload.id).name = payload.name;
     },
     setCurrentChannel: (state, { payload = 1 }) => {
