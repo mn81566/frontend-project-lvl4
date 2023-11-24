@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext.js';
 import useLocalStorage from './useLocalStorage.js';
@@ -10,10 +10,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  // eslint-disable-next-line no-shadow
-  const logIn = async ({ token, username }) => {
+  const logIn = async ({ token, name }) => {
     setUser(token);
-    setUsername(username);
+    setUsername(name);
   };
 
   const logOut = () => {
@@ -21,14 +20,17 @@ export const AuthContextProvider = ({ children }) => {
     navigate(ROUTES.login, { replace: true });
   };
 
+  const logInCallback = useCallback(logIn, [logIn]);
+  const logOutCallback = useCallback(logOut, [logOut]);
+
   const value = useMemo(
     () => ({
       user,
       username,
-      logIn,
-      logOut,
+      logIn: logInCallback,
+      logOut: logOutCallback,
     }),
-    [user, username, logIn, logOut],
+    [user, username, logInCallback, logOutCallback],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
