@@ -21,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logInCallback = useCallback(logIn, [logIn]);
+  
   const logOutCallback = useCallback(logOut, [logOut]);
 
   const value = useMemo(
