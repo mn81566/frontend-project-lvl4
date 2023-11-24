@@ -4,7 +4,7 @@ import ru from './ru.js';
 import en from './en.js';
 
 i18n.use(initReactI18next).init({
-  lng: 'en',
+  lng: 'ru',
   resources: {
     ru,
     en,
