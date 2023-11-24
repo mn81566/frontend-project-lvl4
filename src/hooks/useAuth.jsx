@@ -10,9 +10,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const logIn = async ({ token, name }) => {
+  // eslint-disable-next-line no-shadow
+  const logIn = async ({ token, username }) => {
     setUser(token);
-    setUsername(name);
+    setUsername(username);
   };
 
   const logOut = () => {
@@ -21,7 +22,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logInCallback = useCallback(logIn, [logIn]);
-  
   const logOutCallback = useCallback(logOut, [logOut]);
 
   const value = useMemo(
