@@ -1,4 +1,4 @@
-export default {
+const ru = {
   translation: {
     header: {
       title: 'Hexlet Chat',
@@ -55,5 +55,14 @@ export default {
       delete: 'Удалить',
       rename: 'Переименовать',
     },
+    noMatch: {
+      pageNotFound: '404 Страница не найдена',
+      routing: {
+        canGo: 'Но вы можете перейти',
+        toPage: 'на главную страницу.',
+      }
+    }
   },
 };
+
+export default ru;

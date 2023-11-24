@@ -1,12 +1,14 @@
 import React from 'react';
 import ROUTES from '../../routes.js';
+import { t } from 'i18next';
+import { Link } from 'react-router-dom';
 
 const NoMatch = () => (
   <div className="text-center">
-    <h1 className="h4 text-muted">404 Страница не найдена</h1>
+    <h1 className="h4 text-muted">{t('noMatch.pageNotFound')}</h1>
     <p className="text-muted">
-      Но вы можете перейти
-      <a href={ROUTES.root}> на главную страницу</a>
+      {t('noMatch.routing.canGo')}
+      <a href={ROUTES.root}> {t('noMatch.routing.toPage')}</a>
     </p>
   </div>
 );

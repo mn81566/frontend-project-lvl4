@@ -1,4 +1,4 @@
-export default {
+const en = {
   translation: {
     header: {
       title: 'Hexlet Chat',
@@ -55,5 +55,14 @@ export default {
       delete: 'Delete',
       rename: 'Rename',
     },
+    noMatch: {
+      pageNotFound: '404 Page not found',
+      routing: {
+        canGo: 'But you can move',
+        toPage: 'to Home Page.',
+      }
+    }    
   },
 };
+
+export default en;
