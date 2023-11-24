@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
-import useApi from '../../hooks/useApi.jsx';
+import useApi from '../../hooks/useApi.js';
 
 const MessageForm = () => {
   const api = useApi();

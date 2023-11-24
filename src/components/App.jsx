@@ -17,7 +17,7 @@ import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
-import useApi from '../hooks/useApi.jsx';
+import useApi from '../hooks/useApi.js';
 
 const HomeLayout = () => <Outlet />;
 

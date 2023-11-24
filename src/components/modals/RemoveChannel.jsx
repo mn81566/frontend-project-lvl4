@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import useApi from '../../hooks/useApi.jsx';
+import useApi from '../../hooks/useApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
 

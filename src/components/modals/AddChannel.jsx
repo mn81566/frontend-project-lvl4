@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import cn from 'classnames';
 import { toast, ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import useApi from '../../hooks/useApi.jsx';
+import useApi from '../../hooks/useApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
 
