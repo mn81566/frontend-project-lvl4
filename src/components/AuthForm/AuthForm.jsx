@@ -32,7 +32,7 @@ const AuthForm = () => {
           const {
             data: { token, username },
           } = await axios.post('/api/v1/login', values);
-          logIn({ token, username });
+          logIn({ token, name: username });
           navigate(ROUTES.root, { replace: true });
         } catch (err) {
           if (err.response.data.statusCode === 401) {

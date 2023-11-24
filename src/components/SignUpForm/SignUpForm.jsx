@@ -30,7 +30,7 @@ const SignUpForm = () => {
             username: values.username,
             password: values.password,
           });
-          logIn({ token, username });
+          logIn({ token, name: username });
           setIsUserExists(false);
           navigate(ROUTES.root, { replace: true });
         } catch (err) {

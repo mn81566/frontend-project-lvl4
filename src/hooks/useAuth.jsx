@@ -11,9 +11,9 @@ export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // eslint-disable-next-line no-shadow
-  const logIn = async ({ token, username }) => {
+  const logIn = async ({ token, name }) => {
     setUser(token);
-    setUsername(username);
+    setUsername(name);
   };
 
   const logOut = () => {
