@@ -60,8 +60,8 @@ const en = {
       routing: {
         canGo: 'But you can move',
         toPage: 'to Home Page.',
-      }
-    }    
+      },
+    },
   },
 };
 
