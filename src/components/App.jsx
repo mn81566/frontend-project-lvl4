@@ -21,14 +21,8 @@ import useApi from '../hooks/useApi.js';
 
 const HomeLayout = () => <Outlet />;
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const { user } = useAuth();
-
-  // if (!user) {
-  //   return <Navigate to={ROUTES.login} />;
-  // }
-
-  // return children;
 
   return user ? <HomeLayout /> : <Navigate to={ROUTES.login} />;
 };
@@ -37,10 +31,6 @@ const App = () => {
   const { t } = useTranslation();
   const api = useApi();
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetchData());
-  // }, [dispatch]);
 
   api.onAddNewMessage(dispatch);
   api.onAddNewChannel(dispatch);
@@ -59,19 +49,17 @@ const App = () => {
           </div>
         </nav>
         <Routes>
-          {/* <Route element={<HomeLayout />}> */}
-            <Route path={ROUTES.login} element={<Login />} />
-            <Route path={ROUTES.signup} element={<SignUp />} />
-          {/* </Route> */}
+          <Route path={ROUTES.login} element={<Login />} />
+          <Route path={ROUTES.signup} element={<SignUp />} />
           <Route path="*" element={<NoMatch />} />
           <Route
             path={ROUTES.root}
             element={(<ProtectedRoute />)}
           >
             <Route
-              path=''
+              path=""
               element={(<Main />)}
-            />            
+            />
           </Route>
         </Routes>
         <Modal />
