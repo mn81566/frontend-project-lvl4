@@ -24,11 +24,13 @@ const HomeLayout = () => <Outlet />;
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
-  if (!user) {
-    return <Navigate to={ROUTES.login} />;
-  }
+  // if (!user) {
+  //   return <Navigate to={ROUTES.login} />;
+  // }
 
-  return children;
+  // return children;
+
+  return user ? <HomeLayout /> : <Navigate to={ROUTES.login} />;
 };
 
 const App = () => {
@@ -57,19 +59,20 @@ const App = () => {
           </div>
         </nav>
         <Routes>
-          <Route element={<HomeLayout />}>
+          {/* <Route element={<HomeLayout />}> */}
             <Route path={ROUTES.login} element={<Login />} />
             <Route path={ROUTES.signup} element={<SignUp />} />
-          </Route>
+          {/* </Route> */}
           <Route path="*" element={<NoMatch />} />
           <Route
             path={ROUTES.root}
-            element={(
-              <ProtectedRoute>
-                <Main />
-              </ProtectedRoute>
-            )}
-          />
+            element={(<ProtectedRoute />)}
+          >
+            <Route
+              path=''
+              element={(<Main />)}
+            />            
+          </Route>
         </Routes>
         <Modal />
       </div>
