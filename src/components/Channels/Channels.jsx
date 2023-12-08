@@ -64,7 +64,7 @@ const Channels = () => {
               <Button
                 type="button"
                 // eslint-disable-next-line react/no-unknown-property
-                variant="info"
+                variant={channel.id === currentChannel ? 'info' : null}
                 className={cn('w-100', 'rounded-0', 'text-start', 'btn', 'text-truncate', {
                   'btn-secondary': channel.id === currentChannel,
                 })}

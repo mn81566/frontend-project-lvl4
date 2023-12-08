@@ -12,6 +12,7 @@ import 'regenerator-runtime/runtime.js';
 
 import './assets/application.scss';
 import api from './api/api.js';
+import events from './app/utils/events.js';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
@@ -21,6 +22,8 @@ const rollbarConfig = {
   accessToken: '044de159526e4936b4a119af3d11909a',
   environment: 'testenv',
 };
+
+Object.values(events).map((event) => event());
 
 const container = document.getElementById('chat');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript

@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import Main from './Main/Main.jsx';
 import Login from './Login/Login';
 import SignUp from './SignUp/SignUp';
@@ -17,7 +16,6 @@ import AuthButton from './AuthButton/AuthButton';
 import Modal from './modals/Modal';
 import ROUTES from '../routes.js';
 import '../app/locales/index.js';
-import useApi from '../hooks/useApi.js';
 
 const HomeLayout = () => <Outlet />;
 
@@ -29,13 +27,6 @@ const ProtectedRoute = () => {
 
 const App = () => {
   const { t } = useTranslation();
-  const api = useApi();
-  const dispatch = useDispatch();
-
-  api.onAddNewMessage(dispatch);
-  api.onAddNewChannel(dispatch);
-  api.onRenameChannel(dispatch);
-  api.onRemoveChannel(dispatch);
 
   return (
     <AuthContextProvider>
