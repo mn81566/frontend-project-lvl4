@@ -6,22 +6,24 @@ import fetchData from '../../app/thunks.jsx';
 import Channels from '../Channels/Channels.jsx';
 import Messages from '../Messages/Messages.jsx';
 import './Main.scss';
+import { useAuth } from '../../hooks/useAuth.jsx';
 
 const Main = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const controller = useRef(new AbortController());
   const { current } = controller;
+  const { user } = useAuth();
 
   useEffect(() => {
     const { signal } = controller.current;
 
-    dispatch(fetchData(signal));
+    dispatch(fetchData({ user, signal }));
 
     return () => {
       current.abort();
     };
-  }, [dispatch, current]);
+  }, [dispatch, current, user]);
 
   return (
     channelsData && (

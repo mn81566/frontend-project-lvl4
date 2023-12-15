@@ -16,7 +16,7 @@ const Channels = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
-  const user = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation();
 
   const handleAddChannel = (event) => {
@@ -26,7 +26,7 @@ const Channels = () => {
 
   const handleChannelClick = (id) => {
     dispatch(setCurrentChannel(id));
-    dispatch(fetchData(user.user));
+    dispatch(fetchData({ user }));
   };
 
   const handleRemoveClick = (id) => {
