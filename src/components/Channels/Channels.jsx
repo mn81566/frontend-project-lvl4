@@ -10,11 +10,13 @@ import { showModal } from '../../slices/modalSlice.js';
 import { setCurrentChannel } from '../../slices/channelsSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
 import fetchData from '../../app/thunks.jsx';
+import { useAuth } from '../../hooks/useAuth.jsx';
 
 const Channels = () => {
   const dispatch = useDispatch();
   const channelsData = useSelector((state) => state.channelsInfo.channels);
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
+  const user = useAuth();
   const { t } = useTranslation();
 
   const handleAddChannel = (event) => {
@@ -24,7 +26,7 @@ const Channels = () => {
 
   const handleChannelClick = (id) => {
     dispatch(setCurrentChannel(id));
-    dispatch(fetchData());
+    dispatch(fetchData(user.user));
   };
 
   const handleRemoveClick = (id) => {
@@ -64,10 +66,8 @@ const Channels = () => {
               <Button
                 type="button"
                 // eslint-disable-next-line react/no-unknown-property
-                variant={channel.id === currentChannel ? 'info' : null}
-                className={cn('w-100', 'rounded-0', 'text-start', 'btn', 'text-truncate', {
-                  'btn-secondary': channel.id === currentChannel,
-                })}
+                variant={channel.id === currentChannel ? 'secondary' : null}
+                className="w-100 rounded-0 text-start text-truncate"
                 onClick={() => handleChannelClick(channel.id)}
               >
                 {t('channels.tag')}
@@ -88,7 +88,8 @@ const Channels = () => {
                         'btn-secondary': channel.id === currentChannel,
                       },
                     )}
-                    variant="link"
+                    // variant="link"
+                    variant={channel.id === currentChannel ? 'secondary' : null}
                     color="red"
                   >
                     <span className="visually-hidden">{t('channels.manageСhannel')}</span>

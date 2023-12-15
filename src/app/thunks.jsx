@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth.jsx';
 
 const fetchData = createAsyncThunk('data/fetchData', async () => {
   // const { getToken } = useAuth();

@@ -30,8 +30,7 @@ const en = {
     },
     messages: {
       message_one: '{{count}} message',
-      message_few: '{{count}} messages',
-      message_many: '{{count}} messages',
+      message_other: '{{count}} messages',
     },
     error: {
       wrongLength: 'From 3 to 20 characters',
