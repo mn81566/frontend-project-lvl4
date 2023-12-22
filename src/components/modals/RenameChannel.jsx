@@ -63,15 +63,10 @@ const RemoveChannel = () => {
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelNewName } = values;
-
-        try {
-          await api.renameChannel({ id: channelId, name: channelNewName });
-          notify();
-          resetForm({ channelNewName: '' });
-          handleClose();
-        } catch (e) {
-          console.log('Error: ', e);
-        }
+        await api.renameChannel({ id: channelId, name: channelNewName });
+        notify();
+        resetForm({ channelNewName: '' });
+        handleClose();
       }}
     >
       {({ errors, touched }) => (

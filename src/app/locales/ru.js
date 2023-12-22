@@ -40,6 +40,9 @@ const ru = {
       notSamePasswords: 'Пароли должны совпадать',
       wrongNameOrPassword: 'Неверные имя пользователя или пароль',
       mustBeUnique: 'Должно быть уникальным',
+      unknown: 'Неизвестная ошибка',
+      abortError: 'Запрос отменен',
+      network: 'Сетейвая ошибка',
     },
     notifies: {
       addChannel: 'Канал создан',

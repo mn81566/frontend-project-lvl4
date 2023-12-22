@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Button } from 'react-bootstrap';
@@ -18,6 +18,7 @@ const Channels = () => {
   const currentChannel = useSelector((state) => state.channelsInfo.currentChannel);
   const { user } = useAuth();
   const { t } = useTranslation();
+  const controller = useRef(new AbortController());
 
   const handleAddChannel = (event) => {
     event.preventDefault();
@@ -26,7 +27,7 @@ const Channels = () => {
 
   const handleChannelClick = (id) => {
     dispatch(setCurrentChannel(id));
-    dispatch(fetchData({ user }));
+    dispatch(fetchData(user, controller.current, t));
   };
 
   const handleRemoveClick = (id) => {

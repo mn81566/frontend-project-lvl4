@@ -37,13 +37,9 @@ const RemoveChannel = () => {
     <Formik
       initialValues={{ id: '' }}
       onSubmit={async () => {
-        try {
-          await api.removeChannel({ id: channelId });
-          notify();
-          handleClose();
-        } catch (e) {
-          console.log('Error: ', e);
-        }
+        await api.removeChannel({ id: channelId });
+        notify();
+        handleClose();
       }}
     >
       {() => (

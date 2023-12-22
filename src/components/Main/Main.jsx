@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   useDispatch, useSelector,
 } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import fetchData from '../../app/thunks.jsx';
 import Channels from '../Channels/Channels.jsx';
 import Messages from '../Messages/Messages.jsx';
@@ -14,16 +15,15 @@ const Main = () => {
   const controller = useRef(new AbortController());
   const { current } = controller;
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    const { signal } = controller.current;
-
-    dispatch(fetchData({ user, signal }));
+    dispatch(fetchData(user, controller.current, t));
 
     return () => {
       current.abort();
     };
-  }, [dispatch, current, user]);
+  }, [dispatch, current, user, t]);
 
   return (
     channelsData && (

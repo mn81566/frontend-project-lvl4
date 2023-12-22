@@ -1,22 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const fetchData = createAsyncThunk('data/fetchData', async ({ user }) => {
+const fetchData = createAsyncThunk('data/fetchData', async (user, meta, t) => {
   try {
     const fetchedData = await axios.get('/api/v1/data', {
       headers: {
         Authorization: `Bearer ${user}`,
+        signal: meta.signal,
       },
     });
 
     return fetchedData.data;
   } catch (error) {
+    if (!error.isAxiosError) {
+      toast.error(t('error.unknown'));
+    }
     if (error.name === 'AbortError') {
-      // Запрос был отменен
-      console.log('🚀 ~ file: thunks.jsx:15 ~ fetchData ~ error.name:', error.name);
+      toast.error(t('error.abortError'));
     } else {
-      // Обработка других ошибок
-      console.log('fetch data error');
+      toast.error(t('error.network'));
     }
     return null;
   }

@@ -35,16 +35,11 @@ const MessageForm = () => {
       onSubmit={async (values, { resetForm }) => {
         const textMessage = filter.clean(values.message);
 
-        try {
-          await api.addNewMessage(textMessage, currentChannel);
-          setIsMessageInputDisable(true);
-          resetForm({ message: '' });
-          setIsMessageInputDisable(false);
-          inputRef.current.focus();
-        } catch (err) {
-          console.log(err);
-          throw err;
-        }
+        await api.addNewMessage(textMessage, currentChannel);
+        setIsMessageInputDisable(true);
+        resetForm({ message: '' });
+        setIsMessageInputDisable(false);
+        inputRef.current.focus();
       }}
     >
       {() => (

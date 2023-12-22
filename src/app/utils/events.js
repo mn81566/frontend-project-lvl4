@@ -4,6 +4,7 @@ import { addMessage } from '../../slices/messageSlice.js';
 import {
   addChannel, removeChannel, renameChannel, setCurrentChannel,
 } from '../../slices/channelsSlice.js';
+import DEFAULT_CHANNEL from '../common/constants.js';
 
 const socket = io();
 
@@ -17,7 +18,7 @@ const events = {
   }),
   onRemoveChannel: () => socket.on('removeChannel', (payload) => {
     store.dispatch(removeChannel(payload));
-    store.dispatch(setCurrentChannel(1));
+    store.dispatch(setCurrentChannel(DEFAULT_CHANNEL));
   }),
   onRenameChannel: () => socket.on('renameChannel', (payload) => {
     store.dispatch(renameChannel(payload));
