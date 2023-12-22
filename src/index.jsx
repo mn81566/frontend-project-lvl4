@@ -14,7 +14,7 @@ import './assets/application.scss';
 import api from './api/api.js';
 import { addMessage } from './slices/messageSlice.js';
 import DEFAULT_CHANNEL from './app/common/constants.js';
-import { addChannel, removeChannel, setCurrentChannel } from './slices/channelsSlice.js';
+import { addChannel, removeChannel, renameChannel, setCurrentChannel } from './slices/channelsSlice.js';
 
 const socket = io();
 
@@ -39,7 +39,7 @@ socket.on('removeChannel', (payload) => {
   store.dispatch(setCurrentChannel(DEFAULT_CHANNEL));
 });
 socket.on('renameChannel', (payload) => {
-  store.dispatch(setCurrentChannel(payload));
+  store.dispatch(renameChannel(payload));
 });
 
 const container = document.getElementById('chat');
