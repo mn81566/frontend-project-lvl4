@@ -12,8 +12,6 @@ import useApi from '../../hooks/useApi.js';
 const MessageForm = () => {
   const api = useApi();
   const { currentChannel } = useSelector((state) => state.channelsInfo);
-  filter.add(filter.getDictionary('en'));
-  filter.add(filter.getDictionary('ru'));
   const [isMessageInputDisable, setIsMessageInputDisable] = useState(false);
   const { t } = useTranslation();
 
@@ -34,12 +32,12 @@ const MessageForm = () => {
       validationSchema={MessageSchema}
       onSubmit={async (values, { resetForm }) => {
         const textMessage = filter.clean(values.message);
-
-        await api.addNewMessage(textMessage, currentChannel);
         setIsMessageInputDisable(true);
-        resetForm({ message: '' });
-        setIsMessageInputDisable(false);
-        inputRef.current.focus();
+        await api.addNewMessage(textMessage, currentChannel, () => {
+          resetForm({ message: '' });
+          setIsMessageInputDisable(false);
+          inputRef.current.focus();
+        });
       }}
     >
       {() => (

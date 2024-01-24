@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Provider as RollbarProvider } from '@rollbar/react'; // Provider imports 'rollbar'
 import { io } from 'socket.io-client';
+import filter from 'leo-profanity';
 import App from './components/App.jsx';
 import store from './slices/index.js';
 import ApiContext from './contexts/ApiContext.js';
@@ -43,6 +44,9 @@ socket.on('removeChannel', (payload) => {
 socket.on('renameChannel', (payload) => {
   store.dispatch(renameChannel(payload));
 });
+
+filter.add(filter.getDictionary('en'));
+filter.add(filter.getDictionary('ru'));
 
 const container = document.getElementById('chat');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript

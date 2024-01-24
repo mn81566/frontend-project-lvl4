@@ -55,10 +55,11 @@ const AddChannel = () => {
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
-        api.addNewChannel(channelName);
-        resetForm({ channelName: '' });
-        notify();
-        handleClose();
+        api.addNewChannel(channelName, () => {
+          resetForm({ channelName: '' });
+          notify();
+          handleClose();
+        });
       }}
     >
       {({ errors, touched }) => (
