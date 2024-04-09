@@ -24,12 +24,12 @@ const init = () => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
-  
+
   const rollbarConfig = {
     accessToken: '044de159526e4936b4a119af3d11909a',
     environment: 'testenv',
   };
-  
+
   socket.on('newMessage', (payload) => {
     store.dispatch(addMessage(payload));
   });
@@ -42,13 +42,13 @@ const init = () => {
   socket.on('renameChannel', (payload) => {
     store.dispatch(renameChannel(payload));
   });
-  
+
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
-  
+
   const container = document.getElementById('chat');
   const root = createRoot(container); // createRoot(container!) if you use TypeScript
-  
+
   root.render(
     <RollbarProvider config={rollbarConfig}>
       <Provider store={store}>
@@ -61,6 +61,6 @@ const init = () => {
     </RollbarProvider>,
     container,
   );
-}
+};
 
 init();

@@ -32,7 +32,7 @@ const SignUpForm = () => {
           });
           logIn({ token, name: username });
           setIsUserExists(false);
-          navigate(ROUTES.root, { replace: true });
+          navigate(ROUTES.root(), { replace: true });
         } catch (err) {
           if (err.response.status === 409) {
             setIsUserExists(true);

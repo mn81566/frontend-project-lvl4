@@ -32,7 +32,7 @@ const channelsSlice = createSlice({
       state.channels.find((channel) => channel.id === payload.id).name = payload.name;
     },
     setCurrentChannel: (state, { payload = DEFAULT_CHANNEL }) => {
-      console.log("🚀 ~ payload:", payload)
+      console.log('🚀 ~ payload:', payload);
       // eslint-disable-next-line
       state.currentChannel = payload;
     },

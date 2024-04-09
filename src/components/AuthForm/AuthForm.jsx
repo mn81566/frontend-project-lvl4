@@ -31,9 +31,9 @@ const AuthForm = () => {
           setHasWrongUsernamePasswordError(false);
           const {
             data: { token, username },
-          } = await axios.post(ROUTES.loginApi, values);
+          } = await axios.post(ROUTES.loginApi(), values);
           logIn({ token, name: username });
-          navigate(ROUTES.root, { replace: true });
+          navigate(ROUTES.root(), { replace: true });
         } catch (err) {
           if (err.response.data.statusCode === 401) {
             setHasWrongUsernamePasswordError(true);

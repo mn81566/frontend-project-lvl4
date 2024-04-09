@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
     setUser(null);
-    navigate(ROUTES.login, { replace: true });
+    navigate(ROUTES.login(), { replace: true });
   };
 
   const logInCallback = useCallback(logIn, [logIn]);

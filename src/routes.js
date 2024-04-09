@@ -6,7 +6,7 @@ const ROUTES = {
   signup: () => '/signup',
   loginApi: () => '/api/v1/login',
 
-}
+};
 
 // const ROUTES = {
 //   root: '/',

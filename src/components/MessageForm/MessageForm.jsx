@@ -38,7 +38,7 @@ const MessageForm = () => {
             resetForm({ message: '' });
             setIsMessageInputDisable(false);
             inputRef.current.focus();
-          })
+          });
       }}
     >
       {() => (

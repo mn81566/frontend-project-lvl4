@@ -7,7 +7,7 @@ const NoMatch = () => (
     <h1 className="h4 text-muted">{t('noMatch.pageNotFound')}</h1>
     <p className="text-muted">
       {t('noMatch.routing.canGo')}
-      <a href={ROUTES.root}>
+      <a href={ROUTES.root()}>
         {t('noMatch.routing.toPage')}
       </a>
     </p>

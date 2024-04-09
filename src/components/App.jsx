@@ -22,7 +22,7 @@ const HomeLayout = () => <Outlet />;
 const ProtectedRoute = () => {
   const { user } = useAuth();
 
-  return user ? <HomeLayout /> : <Navigate to={ROUTES.login} />;
+  return user ? <HomeLayout /> : <Navigate to={ROUTES.login()} />;
 };
 
 const App = () => {
@@ -40,11 +40,11 @@ const App = () => {
           </div>
         </nav>
         <Routes>
-          <Route path={ROUTES.login} element={<Login />} />
-          <Route path={ROUTES.signup} element={<SignUp />} />
+          <Route path={ROUTES.login()} element={<Login />} />
+          <Route path={ROUTES.signup()} element={<SignUp />} />
           <Route path="*" element={<NoMatch />} />
           <Route
-            path={ROUTES.root}
+            path={ROUTES.root()}
             element={(<ProtectedRoute />)}
           >
             <Route
