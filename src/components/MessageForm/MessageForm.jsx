@@ -33,11 +33,12 @@ const MessageForm = () => {
       onSubmit={async (values, { resetForm }) => {
         const textMessage = filter.clean(values.message);
         setIsMessageInputDisable(true);
-        await api.addNewMessage(textMessage, currentChannel, () => {
-          resetForm({ message: '' });
-          setIsMessageInputDisable(false);
-          inputRef.current.focus();
-        });
+        api.addNewMessage(textMessage, currentChannel)
+          .then(() => {
+            resetForm({ message: '' });
+            setIsMessageInputDisable(false);
+            inputRef.current.focus();
+          })
       }}
     >
       {() => (

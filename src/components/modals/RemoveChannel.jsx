@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
+import { setCurrentChannel } from '../../slices/channelsSlice.js';
+import DEFAULT_CHANNEL from '../../app/common/constants.js';
 
 const RemoveChannel = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const RemoveChannel = () => {
       initialValues={{ id: '' }}
       onSubmit={async () => {
         await api.removeChannel({ id: channelId }, () => {
+          dispatch(setCurrentChannel(DEFAULT_CHANNEL));
           notify();
           handleClose();
         });

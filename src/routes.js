@@ -1,10 +1,18 @@
 // @ts-check
 
 const ROUTES = {
-  root: '/',
-  login: '/login',
-  signup: '/signup',
-  loginApi: '/api/v1/login',
-};
+  root: () => '/',
+  login: () => '/login',
+  signup: () => '/signup',
+  loginApi: () => '/api/v1/login',
+
+}
+
+// const ROUTES = {
+//   root: '/',
+//   login: '/login',
+//   signup: '/signup',
+//   loginApi: '/api/v1/login',
+// };
 
 export default ROUTES;

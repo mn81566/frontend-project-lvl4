@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
+import { setCurrentChannel } from '../../slices/channelsSlice.js';
 
 const AddChannel = () => {
   const dispatch = useDispatch();
@@ -55,11 +56,15 @@ const AddChannel = () => {
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
         const { channelName } = values;
-        api.addNewChannel(channelName, () => {
-          resetForm({ channelName: '' });
-          notify();
-          handleClose();
-        });
+        api.addNewChannel(channelName)
+          .then((response) => {
+            console.log("🚀 ~ .then ~ response:", response)
+            dispatch(setCurrentChannel(response?.data?.id));
+            
+            resetForm({ channelName: '' });
+            notify();
+            handleClose();  
+          });
       }}
     >
       {({ errors, touched }) => (

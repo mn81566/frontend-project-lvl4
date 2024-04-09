@@ -1,36 +1,19 @@
-import { io } from 'socket.io-client';
+const promisify = (socket, eventName, args) => (
+  new Promise((resolve, reject) => socket.emit(eventName, args, (response) => {
+    if (response.status === 'ok') {
+      resolve(response);
+    } else {
+      reject(response.error);
+    }
+  })
+));
 
-const socket = io();
-
-const api = {
-  addNewMessage: (textMessage, currentChannel, callback) => socket.timeout(5000).emit(
-    'newMessage',
-    { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) },
-    () => {
-      callback();
-    },
-  ),
-  addNewChannel: (channelName, callback) => socket.emit(
-    'newChannel',
-    { name: channelName },
-    () => {
-      callback();
-    },
-  ),
-  renameChannel: ({ id, name }, callback) => socket.emit(
-    'renameChannel',
-    { id, name },
-    () => {
-      callback();
-    },
-  ),
-  removeChannel: ({ id }, callback) => socket.emit(
-    'removeChannel',
-    { id },
-    () => {
-      callback();
-    },
-  ),
-};
+const api = (socket) => ({
+  addNewMessage: (textMessage, currentChannel) => promisify(socket, 'newMessage', 
+    { body: textMessage, channelId: currentChannel, username: JSON.parse(localStorage.getItem('username')) }), 
+  addNewChannel: (channelName) => promisify(socket, 'newChannel', { name: channelName }),
+  renameChannel: ({ id, name }) => promisify(socket, 'renameChannel', { id, name }),
+  removeChannel: ({ id }) => promisify(socket, 'removeChannel', { id }),
+});
 
 export default api;
