@@ -43,8 +43,8 @@ const RemoveChannel = () => {
           .then(() => {
             dispatch(setCurrentChannel(DEFAULT_CHANNEL));
             notify();
-            handleClose();            
-          })
+            handleClose();
+          });
       }}
     >
       {() => (

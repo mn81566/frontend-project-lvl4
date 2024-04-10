@@ -67,8 +67,8 @@ const RemoveChannel = () => {
           .then(() => {
             notify();
             resetForm({ channelNewName: '' });
-            handleClose();            
-          })        
+            handleClose();
+          });
       }}
     >
       {({ errors, touched }) => (

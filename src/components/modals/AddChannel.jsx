@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import cn from 'classnames';
 import { toast, ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import useApi from '../../hooks/useApi.js';
 import { closeModal } from '../../slices/modalSlice.js';
 import 'react-toastify/dist/ReactToastify.css';
@@ -55,8 +56,9 @@ const AddChannel = () => {
       validateOnChange={false}
       validateOnBlur={false}
       onSubmit={async (values, { resetForm }) => {
-        const { channelName } = values;
-        api.addNewChannel(channelName)
+        const channelNameFiltered = filter.clean(values.channelName);
+
+        api.addNewChannel(channelNameFiltered)
           .then((response) => {
             dispatch(setCurrentChannel(response?.data?.id));
 
