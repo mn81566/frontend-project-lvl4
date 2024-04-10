@@ -43,6 +43,7 @@ const ru = {
       unknown: 'Неизвестная ошибка',
       abortError: 'Запрос отменен',
       network: 'Сетейвая ошибка',
+      userAlreadyExists: 'Такой пользователь уже существует',
     },
     notifies: {
       addChannel: 'Канал создан',

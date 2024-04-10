@@ -90,6 +90,7 @@ const SignUpForm = () => {
               {t('signup.passwordConfirmationInput')}
             </label>
             {errors.passwordConfirmation && touched.passwordConfirmation ? <div placement="right" className="invalid-tooltip">{errors.passwordConfirmation}</div> : null}
+            {isUserExists ? <div placement="right" className="invalid-tooltip">{t('error.userAlreadyExists')}</div> : null}
           </BootstrapForm.Group>
           <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
             {t('signup.signupButton')}

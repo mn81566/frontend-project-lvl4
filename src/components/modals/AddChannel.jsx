@@ -58,7 +58,6 @@ const AddChannel = () => {
         const { channelName } = values;
         api.addNewChannel(channelName)
           .then((response) => {
-            console.log('🚀 ~ .then ~ response:', response);
             dispatch(setCurrentChannel(response?.data?.id));
 
             resetForm({ channelName: '' });

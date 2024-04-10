@@ -39,6 +39,7 @@ const en = {
       notSamePasswords: 'Passwords must match',
       wrongNameOrPassword: 'Invalid username or password',
       mustBeUnique: 'Must be unique',
+      userAlreadyExists: 'This user already exists',
     },
     notifies: {
       addChannel: 'Channel created',

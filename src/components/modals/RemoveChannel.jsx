@@ -39,11 +39,12 @@ const RemoveChannel = () => {
     <Formik
       initialValues={{ id: '' }}
       onSubmit={async () => {
-        await api.removeChannel({ id: channelId }, () => {
-          dispatch(setCurrentChannel(DEFAULT_CHANNEL));
-          notify();
-          handleClose();
-        });
+        api.removeChannel({ id: channelId })
+          .then(() => {
+            dispatch(setCurrentChannel(DEFAULT_CHANNEL));
+            notify();
+            handleClose();            
+          })
       }}
     >
       {() => (
